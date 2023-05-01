@@ -35,6 +35,13 @@ public class MemberController {
 		return "/member/registry";
 	}
 	
+	// 로그인 페이지 이동
+	@GetMapping("/signin")
+	public String signin() throws Exception {
+		logger.debug("GET regisigninstry called");
+		return "/member/signin";
+	}
+	
 	// 회원가입페이지에서 가입 버튼을 누르면 회원 가입이 되고 이후 index 페이지로 이동합니다.
 	@PostMapping("/registryaf")
 	public String registryaf(MembersDto mdto) throws Exception {
@@ -44,7 +51,7 @@ public class MemberController {
 	}
 	
 	// 로그인 버튼을 누르면 로그인을 시도합니다.
-	@GetMapping("/loginaf")
+	@PostMapping("/loginaf")
 	public String loginaf(MembersDto mdto, HttpSession session, Model model) throws Exception {
 		logger.debug("GET loginaf called");
 		MembersDto login = memberService.login(mdto);

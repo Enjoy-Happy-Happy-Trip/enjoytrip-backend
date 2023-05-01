@@ -13,7 +13,7 @@
 
 <head>
 	
-	<%@ include file="/include/head.jsp" %>
+	<%@ include file="/WEB-INF/views/include/head.jsp" %>
 
 	<title>Home</title>
 </head>
@@ -30,7 +30,7 @@
 	</div>
 
 	
-	<%@ include file="/include/nav.jsp" %>
+	<%@ include file="/WEB-INF/views/include/nav.jsp" %>
 
 	<div class="hero">
 		<div class="container">
@@ -87,11 +87,11 @@
 				</div>
 				<div class="col-lg-5">
 					<div class="slides">
-						<img src="images/hero-slider-1.jpg" alt="Image" class="img-fluid active" />
-						<img src="images/hero-slider-2.jpg" alt="Image" class="img-fluid" />
-						<img src="images/hero-slider-3.jpg" alt="Image" class="img-fluid" />
-						<img src="images/hero-slider-4.jpg" alt="Image" class="img-fluid" />
-						<img src="images/hero-slider-5.jpg" alt="Image" class="img-fluid" />
+						<img src="assets/images/hero-slider-1.jpg" alt="Image" class="img-fluid active" />
+						<img src="assets/images/hero-slider-2.jpg" alt="Image" class="img-fluid" />
+						<img src="assets/images/hero-slider-3.jpg" alt="Image" class="img-fluid" />
+						<img src="assets/images/hero-slider-4.jpg" alt="Image" class="img-fluid" />
+						<img src="assets/images/hero-slider-5.jpg" alt="Image" class="img-fluid" />
 					</div>
 				</div>
 			</div>
@@ -108,62 +108,62 @@
 
 			<div class="owl-carousel owl-3-slider">
 				<div class="item">
-					<a class="media-thumb" href="images/hero-slider-1.jpg" data-fancybox="gallery">
+					<a class="media-thumb" href="assets/images/hero-slider-1.jpg" data-fancybox="gallery">
 						<div class="media-text">
 							<h3>Pragser Wildsee</h3>
 							<span class="location">Italy</span>
 						</div>
-						<img src="images/hero-slider-1.jpg" alt="Image" class="img-fluid" />
+						<img src="assets/images/hero-slider-1.jpg" alt="Image" class="img-fluid" />
 					</a>
 				</div>
 
 				<div class="item">
-					<a class="media-thumb" href="images/hero-slider-2.jpg" data-fancybox="gallery">
+					<a class="media-thumb" href="assets/images/hero-slider-2.jpg" data-fancybox="gallery">
 						<div class="media-text">
 							<h3>Oia</h3>
 							<span class="location">Greece</span>
 						</div>
-						<img src="images/hero-slider-2.jpg" alt="Image" class="img-fluid" />
+						<img src="assets/images/hero-slider-2.jpg" alt="Image" class="img-fluid" />
 					</a>
 				</div>
 
 				<div class="item">
-					<a class="media-thumb" href="images/hero-slider-3.jpg" data-fancybox="gallery">
+					<a class="media-thumb" href="assets/images/hero-slider-3.jpg" data-fancybox="gallery">
 						<div class="media-text">
 							<h3>Perhentian Islands</h3>
 							<span class="location">Malaysia</span>
 						</div>
-						<img src="images/hero-slider-3.jpg" alt="Image" class="img-fluid" />
+						<img src="assets/images/hero-slider-3.jpg" alt="Image" class="img-fluid" />
 					</a>
 				</div>
 
 				<div class="item">
-					<a class="media-thumb" href="images/hero-slider-4.jpg" data-fancybox="gallery">
+					<a class="media-thumb" href="assets/images/hero-slider-4.jpg" data-fancybox="gallery">
 						<div class="media-text">
 							<h3>Rialto Bridge</h3>
 							<span class="location">Italy</span>
 						</div>
-						<img src="images/hero-slider-4.jpg" alt="Image" class="img-fluid" />
+						<img src="assets/images/hero-slider-4.jpg" alt="Image" class="img-fluid" />
 					</a>
 				</div>
 
 				<div class="item">
-					<a class="media-thumb" href="images/hero-slider-5.jpg" data-fancybox="gallery">
+					<a class="media-thumb" href="assets/images/hero-slider-5.jpg" data-fancybox="gallery">
 						<div class="media-text">
 							<h3>San Francisco, United States</h3>
 							<span class="location">United States</span>
 						</div>
-						<img src="images/hero-slider-5.jpg" alt="Image" class="img-fluid" />
+						<img src="assets/images/hero-slider-5.jpg" alt="Image" class="img-fluid" />
 					</a>
 				</div>
 
 				<div class="item">
-					<a class="media-thumb" href="images/hero-slider-1.jpg" data-fancybox="gallery">
+					<a class="media-thumb" href="assets/images/hero-slider-1.jpg" data-fancybox="gallery">
 						<div class="media-text">
 							<h3>Lake Thun</h3>
 							<span class="location">Switzerland</span>
 						</div>
-						<img src="images/hero-slider-2.jpg" alt="Image" class="img-fluid" />
+						<img src="assets/images/hero-slider-2.jpg" alt="Image" class="img-fluid" />
 					</a>
 				</div>
 			</div>
@@ -199,4 +199,4 @@
 	</script>
 
 
-<%@ include file="/include/footer.jsp" %>
+<%@ include file="/WEB-INF/views/include/footer.jsp" %>

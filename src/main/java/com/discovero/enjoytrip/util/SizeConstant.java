@@ -1,4 +1,4 @@
-package com.ssafy.edu.util;
+package com.discovero.enjoytrip.util;
 
 public class SizeConstant {
 

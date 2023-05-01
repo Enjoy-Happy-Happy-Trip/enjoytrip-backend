@@ -12,23 +12,23 @@
 				<!-- @@@@@@@@@@@@@@오른쪽 네비게이션 바 @@@@@@@@@@@@@@@@@@@@ -->
 				<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 				<c:if test="${empty sessionScope.login}">
-					<li><a href="${root}/board?action=boardlist">Board</a></li>
+					<li><a href="${root}/board/boardlist">Board</a></li>
 					<li><a href="${root}/tour/tourinfo.html">TourInfo</a></li>
-					<li><a href="${root}/member/signin.jsp">Sign In</a></li>
+					<li><a href="${root}/member/signin">Sign In</a></li>
 				</c:if>
 				<c:if test="${not empty sessionScope.login}">
 					<c:if test="${sessionScope.login.user_id != 'admin'}">
 						<li><a>[${login.user_name}]님 안녕하세요</a></li>
-						<li><a href="${root}/board?action=boardlist">Board</a></li>
+						<li><a href="${root}/board/boardlist">Board</a></li>
 						<li><a href="${root}/tour/tourinfo.html">TourInfo</a></li>
-						<li><a href="${root}/member?action=signout">Sign Out</a></li>
+						<li><a href="${root}/member/signout">Sign Out</a></li>
 					</c:if>
 					<c:if test="${sessionScope.login.user_id == 'admin'}">
 						<li><a>[${login.user_name}]님 안녕하세요</a></li>
-						<li><a href="${root}/board?action=boardlist">Board</a></li>
+						<li><a href="${root}/board/boardlist">Board</a></li>
 						<li><a href="${root}/tour/tourinfo.html">TourInfo</a></li>
-						<li><a href="${root}/member?action=memberlist">Admin Page</a></li>
-						<li><a href="${root}/member?action=signout">Sign Out</a></li>					
+						<li><a href="${root}/member/memberlist">Admin Page</a></li>
+						<li><a href="${root}/member/signout">Sign Out</a></li>					
 					</c:if>
 				</c:if>
 			</ul>

@@ -13,7 +13,7 @@
 
 <head>
     
-	<%@ include file="/include/head.jsp" %>
+	<%@ include file="/WEB-INF/views/include/head.jsp" %>
 
     <title>Register</title>
 </head>
@@ -30,7 +30,7 @@
     </div>
 
     
-	<%@ include file="/include/nav.jsp" %>
+	<%@ include file="/WEB-INF/views/include/nav.jsp" %>
 
     <div class="hero hero-inner">
         <div class="container">
@@ -94,4 +94,4 @@
 
 
 
-<%@ include file="/include/footer.jsp" %>
+<%@ include file="/WEB-INF/views/include/footer.jsp" %>

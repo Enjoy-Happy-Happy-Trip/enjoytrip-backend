@@ -12,7 +12,7 @@
 <head>
 
 
-<%@ include file="/include/head.jsp"%>
+<%@ include file="/WEB-INF/views/include/head.jsp"%>
 
 <title>Sign In</title>
 </head>
@@ -30,7 +30,7 @@
 	</div>
 
 
-	<%@ include file="/include/nav.jsp"%>
+	<%@ include file="/WEB-INF/views/include/nav.jsp"%>
 
 
 	<div class="hero hero-inner">
@@ -51,9 +51,8 @@
 		<div class="container">
 			<div class="row justify-content-center">
 				<div>
-					<form class="signin-form" action="${root}/member" method="post"
+					<form class="signin-form" action="${root}/member/loginaf" method="post"
 						data-aos="fade-up" data-aos-delay="200">
-						<input type="hidden" id="action" name="action" value="loginaf">
 						<div class="row justify-content-center">
 							<div class="col-6">
 								<div class="form-group">
@@ -83,4 +82,4 @@
 	</div>
 
 
-	<%@ include file="/include/footer.jsp"%>
+	<%@ include file="/WEB-INF/views/include/footer.jsp"%>

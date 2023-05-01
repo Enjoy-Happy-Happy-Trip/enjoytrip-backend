@@ -9,7 +9,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-<%@include file="/include/head.jsp"%>
+<%@include file="/WEB-INF/views/include/head.jsp"%>
 
 <title>게시판</title>
 </head>
@@ -24,7 +24,7 @@
 		<div class="site-mobile-menu-body"></div>
 	</div>
 
-	<%@ include file="/include/nav.jsp"%>
+	<%@ include file="/WEB-INF/views/include/nav.jsp"%>
 
 	<div class="hero hero-inner">
 		<div class="container">
@@ -94,7 +94,7 @@
 		</div>
 	</div>
 =
-	<%@ include file="/include/footer.jsp"%>
+	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 
 </body>
 
