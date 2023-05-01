@@ -1,4 +1,4 @@
-package com.ssafy.edu.model;
+package com.discovero.enjoytrip.board.model;
 
 public class BoardDto {
 	private int article_no;

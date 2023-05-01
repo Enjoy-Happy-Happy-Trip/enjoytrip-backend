@@ -1,98 +1,120 @@
 package com.discovero.enjoytrip.board.controller;
 
-import java.io.IOException;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.discovero.enjoytrip.board.model.IBoardService;
-import com.ssafy.board.controller.BoardController;
+import com.discovero.enjoytrip.board.controller.BoardController;
+import com.discovero.enjoytrip.board.model.BoardDto;
+import com.discovero.enjoytrip.board.model.IBoardService;
+import com.discovero.enjoytrip.member.model.MembersDto;
+import com.discovero.enjoytrip.util.PageNavigation;
 
-@Controller("/board")
-public class BoardController {
+@Controller
+@RequestMapping("/board")
+public class BoardController {	
 	private final Logger logger = LoggerFactory.getLogger(BoardController.class);
+	
+	@Value("${file.path}")
+	private String uploadPath;
+	
+	@Value("${file.imgPath}")
+	private String uploadImgPath;
 
-	IBoardService bservice;
+	private IBoardService boardService;
 
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doProcess(request, response);
+	public BoardController(IBoardService boardService) {
+		super();
+		this.boardService = boardService;
 	}
-
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doProcess(request, response);
+	
+	@GetMapping("/boardwrite")
+	public String boardwrite(Model model) {
+		logger.debug("GET boardwrite called");
+		return "redirect:/board/boardwrite";
 	}
-
-	public void doProcess(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; charset=UTF-8");
+	
+	@PostMapping("/bwrite")
+	public String bwrite(BoardDto bdto, Model model) {
+		logger.debug("POST brwite called {}", bdto.toString());
 		
-		String root = request.getContextPath();
-		System.out.println(root);
+		boolean isS = boardService.boardWrite(new BoardDto(bdto.getUser_id(), bdto.getSubject(), bdto.getContent()));
 		
-		bservice = BoardServiceImpl.getInstance();
-		
-		String action = request.getParameter("action");
-		
-		if (action.equalsIgnoreCase("boardwrite")) {
-			response.sendRedirect("./board/boardwrite.jsp");
-		} else if (action.equalsIgnoreCase("home")) {
-			response.sendRedirect(root + "/index.jsp");
-		} else if (action.equalsIgnoreCase("bwrite")) {
-			String user_id = request.getParameter("user_id");
-			String subject = request.getParameter("subject");
-			String content = request.getParameter("content");
-			
-			boolean isS = bservice.boardWrite(new BoardDto(user_id, subject, content));
-			
-			response.sendRedirect(root + "/board?action=boardlist");
-		} else if (action.equalsIgnoreCase("boardlist")) {
-			request.setAttribute("boards", bservice.boardlist());
-			RequestDispatcher dispatcher = request.getRequestDispatcher("./board/boardlist.jsp");
-			dispatcher.forward(request, response);
-		} else if (action.equalsIgnoreCase("detail")) {
-			String sarticle_no = request.getParameter("article_no");
-			int article_no = Integer.parseInt(sarticle_no);
-			
-			request.setAttribute("board", bservice.boardDetail(article_no));
-			RequestDispatcher dispatcher = request.getRequestDispatcher("./board/boarddetail.jsp");
-			dispatcher.forward(request, response);
-		} else if (action.equalsIgnoreCase("delete")) {
-			String sarticle_no = request.getParameter("article_no");
-			int article_no = Integer.parseInt(sarticle_no);
-			
-			bservice.boardDelete(article_no);
-			response.sendRedirect(root + "/board?action=boardlist");
-		} else if (action.equalsIgnoreCase("updateBoard")) {
-			String sarticle_no = request.getParameter("article_no");
-			int article_no = Integer.parseInt(sarticle_no);
-			
-			request.setAttribute("board", bservice.boardDetail(article_no));
-			RequestDispatcher dispatcher = request.getRequestDispatcher("./board/boardupdate.jsp");
-			dispatcher.forward(request, response);
-		} else if (action.equalsIgnoreCase("updateGo")) {
-			String sarticle_no = request.getParameter("article_no");
-			int article_no = Integer.parseInt(sarticle_no);
-
-			String subject = request.getParameter("subject");
-			String content = request.getParameter("content");
-
-			bservice.boardUpdate(new BoardDto(article_no, subject, content));
-
-			request.setAttribute("board", bservice.boardDetail(article_no));
-
-			RequestDispatcher dispatcher = request.getRequestDispatcher("./board/boarddetail.jsp");
-			dispatcher.forward(request, response);
-		} else if (action.equalsIgnoreCase("filter")) {
-			String category = request.getParameter("key");
-			String keyword = request.getParameter("word");
-			
-			System.out.println(category + " " + keyword);
-			
-			request.setAttribute("boards", bservice.boardSearch(category, keyword));
-			RequestDispatcher dispatcher = request.getRequestDispatcher("./board/boardlist.jsp");
-			dispatcher.forward(request, response);
-		} 
+		return "redirect:/board/boardlist";
 	}
+	
+	@GetMapping("/boardlist")
+	public String boardlist(Model model) {
+		logger.info("GET boardlist called");
+		model.addAttribute("boards", boardService.boardlist());
+		return "board/boardlist";
+	}
+	
+	@GetMapping("/detail")
+	public String detail(BoardDto bdto, Model model) {
+		logger.debug("GET detail called");
+		int article_no = bdto.getArticle_no();
+
+		model.addAttribute("board", boardService.boardDetail(article_no));
+		return "board/boarddetail";
+	}
+	
+	@GetMapping("/delete")
+	public String delete(BoardDto bdto, Model model) {
+		logger.debug("GET delete called");
+		int article_no = bdto.getArticle_no();
+		
+		model.addAttribute("board", boardService.boardDelete(article_no));
+		return "redirect:/board/boardlist";
+	}
+	
+	@GetMapping("/updateboard")
+	public String updateboard(BoardDto bdto, Model model) {
+		logger.debug("GET updateboard called");
+		int article_no = bdto.getArticle_no();
+		
+		model.addAttribute("board", boardService.boardDetail(article_no));
+		return "board/boardupdate";
+	}
+	
+	@GetMapping("/updatego")
+	public String updatego(BoardDto bdto, Model model) {
+		logger.debug("GET updatego called");
+		int article_no = bdto.getArticle_no();
+		
+		boardService.boardUpdate(new BoardDto(bdto.getArticle_no(), bdto.getSubject(), bdto.getContent()));
+		
+		model.addAttribute("board", boardService.boardDetail(article_no));
+		return "board/boarddetail";
+	}
+	
+	@GetMapping("/filter")
+	public String filter(String key, String word, Model model) {
+		logger.debug("GET filter called {}", key, word);
+		model.addAttribute("boards", boardService.boardSearch(key, word));
+		
+		return "board/boardlist";
+	}
+	
 }
