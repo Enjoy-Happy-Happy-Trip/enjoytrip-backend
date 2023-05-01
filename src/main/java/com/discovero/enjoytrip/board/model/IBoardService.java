@@ -1,4 +1,4 @@
-package com.ssafy.edu.model;
+package com.discovero.enjoytrip.board.model;
 
 import java.util.List;
 
@@ -14,4 +14,8 @@ public interface IBoardService {
 	boolean boardUpdate(BoardDto dto);
 
 	List<BoardDto> boardSearch(String category, String keyword);
+	
+	boolean KMP(String parent, String pattern);
+	
+	int[] makeTable(String pattern);
 }
