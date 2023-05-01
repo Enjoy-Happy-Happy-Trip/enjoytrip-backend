@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TourInfo</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+	crossorigin="anonymous" />
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" />
+<!-- Favicon-->
+<link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
+<!-- Font Awesome icons (free version)-->
+<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
+	crossorigin="anonymous"></script>
+<!-- Core theme CSS (includes Bootstrap)-->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+	rel="stylesheet" />
+<style>
+.overlay_info {
+	border-radius: 6px;
+	margin-bottom: 12px;
+	float: left;
+	position: relative;
+	border: 1px solid #ccc;
+	border-bottom: 2px solid #ddd;
+	background-color: #fff;
+}
+
+.overlay_info:nth-of-type(n) {
+	border: 0;
+	box-shadow: 0px 1px 2px #888;
+}
+
+.overlay_info a {
+	display: block;
+	background: #d95050;
+	background: #d95050
+		url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png)
+		no-repeat right 14px center;
+	text-decoration: none;
+	color: #fff;
+	padding: 12px 36px 12px 14px;
+	font-size: 14px;
+	border-radius: 6px 6px 0 0
+}
+
+.overlay_info a strong {
+	background:
+		url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/place_icon.png)
+		no-repeat;
+	padding-left: 27px;
+}
+
+.overlay_info .desc {
+	padding: 14px;
+	position: relative;
+	min-width: 190px;
+	height: 56px
+}
+
+.overlay_info img {
+	vertical-align: top;
+}
+
+.overlay_info .address {
+	font-size: 12px;
+	color: #333;
+	position: absolute;
+	left: 80px;
+	right: 14px;
+	top: 24px;
+	white-space: normal
+}
+
+.overlay_info:after {
+	content: '';
+	position: absolute;
+	margin-left: -11px;
+	left: 50%;
+	bottom: -12px;
+	width: 22px;
+	height: 12px;
+	background:
+		url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png)
+		no-repeat 0 bottom;
+}
+</style>
+</head>
+
+<body>
+	<!-- 상단 navbar start -->
+	<!-- Navigation-->
+	<nav class="navbar navbar-expand-lg fixed-top"
+		style="background: #1A374D" id="mainNav">
+		<div class="container">
+			<a class="navbar-brand" href="../index.jsp"
+				style="color: white; font-weight: bolder; font-size: 40px">EnjoyTrip.</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+				aria-controls="navbarResponsive" aria-expanded="false"
+				aria-label="Toggle navigation">
+				Menu <i class="fas fa-bars ms-1"></i>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+					<li class="nav-item"><a class="nav-link" style="color: white"
+						href="../board/boardlist.jsp">Board</a></li>
+					<li class="nav-item"><a class="nav-link" style="color: white"
+						href="../tour/tourinfo.html">TourInfo</a></li>
+					<li class="nav-item"><a class="nav-link" style="color: white"
+						href="../member/signin.jsp">Sign In</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- 상단 navbar end -->
+
+
+	<!-- 중앙 content start -->
+	<div class="container" style="max-width: 100% !important">
+		<div style="height: 70px"></div>
+		<div class="alert alert-primary mt-3 text-center fw-bold" role="alert">
+			전국 관광지 정보</div>
+		<div class="row">
+			<div class="col-md-2"></div>
+			<!-- 중앙 center content end -->
+			<div class="col-md-6">
+				<!-- 관광지 검색 start -->
+				<form class="d-flex my-3" onsubmit="return false;" role="search">
+					<select id="search-area" class="form-select me-2">
+						<option value="0" selected>검색 할 지역 선택</option>
+					</select> <select id="search-content-id" class="form-select me-2">
+						<option value="0" selected>관광지 유형</option>
+						<option value="12">관광지</option>
+						<option value="14">문화시설</option>
+						<option value="15">축제공연행사</option>
+						<option value="25">여행코스</option>
+						<option value="28">레포츠</option>
+						<option value="32">숙박</option>
+						<option value="38">쇼핑</option>
+						<option value="39">음식점</option>
+					</select> <input id="search-keyword" class="form-control me-2" type="search"
+						placeholder="검색어" aria-label="검색어" />
+					<button id="btn-search" class="btn btn-outline-success"
+						type="button">검색</button>
+				</form>
+
+				<!-- kakao map start -->
+				<div id="map" class="mt-3" style="width: 100%; height: 500px"></div>
+				<!-- kakao map end -->
+				<div class="row">
+					<table class="table table-striped" style="display: none">
+						<thead>
+							<tr>
+								<th>대표이미지</th>
+								<th>관광지명</th>
+								<th>주소</th>
+								<th> </th>
+							</tr>
+						</thead>
+						<tbody id="trip-list"></tbody>
+					</table>
+				</div>
+				<!-- 관광지 검색 end -->
+				<!-- 중앙 center content end -->
+			</div>
+			<!-- 중앙 right content start -->
+			<div id="rightContent" class="col-md-4">
+				<button id="btn-plan" class="d-flex my-3 btn btn-outline-danger">새
+					계획 만들기</button>
+
+			</div>
+			<!-- 중앙 right content end -->
+		</div>
+		<!-- 중앙 content end -->
+
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+			crossorigin="anonymous"></script>
+		<script src="../js/key.js"></script>
+		<script type="text/javascript"
+			src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f18cc6f1b5f0c6074cc0aa605f4fc9aa&libraries=services,clusterer,drawing"></script>
+
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+		<script>
+			/* 
+			공지사항
+			롤 부여
+			여행 계획 -> 순서 변경
+			후기 작성 
+			*/
+			
+	        var linePath = [];
+	        var places = [];
+			var cnt = 1;
+					
+            // index page 로딩 후 전국의 시도 설정.
+            let areaUrl =
+                "https://apis.data.go.kr/B551011/KorService1/areaCode1?serviceKey=" +
+                serviceKey +
+                "&numOfRows=20&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json";
+
+            // fetch(areaUrl, { method: "GET" }).then(function (response) { return response.json() }).then(function (data) { makeOption(data); });
+            fetch(areaUrl, { method: "GET" })
+                .then((response) => response.json())
+                .then((data) => makeOption(data));
+
+            function makeOption(data) {
+                let areas = data.response.body.items.item;
+                // console.log(areas);
+                let sel = document.getElementById("search-area");
+                areas.forEach((area) => {
+                    let opt = document.createElement("option");
+                    opt.setAttribute("value", area.code);
+                    opt.appendChild(document.createTextNode(area.name));
+
+                    sel.appendChild(opt);
+                });
+            }
+            
+            
+            // 계획 리스트 생성 버튼
+            document.getElementById("btn-plan").addEventListener("click", () => {
+            	let planList = document.createElement("div");
+            	planList.setAttribute("class", "alert alert-primary mt-3 text-center fw-bold");
+            	planList.innerHTML="여행 계획";
+            	
+            	let rightContent = document.getElementById("rightContent");
+            	rightContent.innerHTML = "";
+            	rightContent.appendChild(planList);
+            	
+            	let planListDetail = document.createElement("div");
+            	planListDetail.setAttribute("id", "planListDetail");
+            	rightContent.appendChild(planListDetail);
+            	
+            	let button = document.createElement("button");
+            	button.setAttribute("class", "btn btn-outline-success");
+            	button.setAttribute("id", "savePlan");
+            	var t = document.createTextNode("계획 저장");
+            	button.appendChild(t);
+            	
+            	rightContent.appendChild(button);
+            	
+            	// 계획 저장 버튼
+                document.getElementById("savePlan").addEventListener("click", () => {
+                	var xhr = new XMLHttpRequest();
+                	var contextPath = window.location.pathname.split('/')[1];
+                	console.log(contextPath); // output: "your-web-app-context-path"
+                	
+                	contextPath += "/tour?action=savePlan";
+                	
+                	xhr.open('POST', contextPath, true);
+                	xhr.setRequestHeader('Content-Type', 'application/json'); // set the content type if you're sending JSON data
+                	xhr.onreadystatechange = function() {
+                	    if (xhr.readyState === 4 && xhr.status === 200) {
+                	        // handle the server response here
+                	        console.log(xhr.responseText);
+                	    }
+                	};
+                	
+                	xhr.send(JSON.stringify(places)); // send the data as a JSON string
+                });
+            });
+
+            // 검색 버튼을 누르면..
+            // 지역, 유형, 검색어 얻기.
+            // 위 데이터를 가지고 공공데이터에 요청.
+            // 받은 데이터를 이용하여 화면 구성.
+            document.getElementById("btn-search").addEventListener("click", () => {
+                let searchUrl = `https://apis.data.go.kr/B551011/KorService1/searchKeyword1?serviceKey=${serviceKey}&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=A`;
+                linePath = [];
+                
+                let areaCode = document.getElementById("search-area").value;
+                let contentTypeId = document.getElementById("search-content-id").value;
+                let keyword = document.getElementById("search-keyword").value;
+
+                if (parseInt(areaCode)) searchUrl += `&areaCode=${areaCode}`;
+                if (parseInt(contentTypeId)) searchUrl += `&contentTypeId=${contentTypeId}`;
+                if (!keyword) {
+                    alert("검색어 입력 필수!!!");
+                    return;
+                } else searchUrl += `&keyword=${keyword}`;
+
+                fetch(searchUrl)
+                    .then((response) => response.json())
+                    .then((data) => makeList(data));
+            });
+            
+            var positions; // marker 배열.
+            var markers;
+            function makeList(data) {
+            	var count = 0;
+            	
+                document.querySelector("table").setAttribute("style", "display: ;");
+                let trips = data.response.body.items.item;
+                let tripList = ``;
+                if (markers != null) {
+                    for (i = 0; i < markers.length; i++) {
+                        markers[i].setMap(null);
+                    }
+                }
+				
+                markers = [];
+                positions = [];
+                linePath = [];
+                                
+                trips.forEach((area) => {
+                    tripList += `
+            <tr onclick="moveCenter(${area.mapy}, ${area.mapx});">
+              <td><img src="${area.firstimage}" width="100px"></td>
+              <td>${area.title}</td>
+              <td>${area.addr1} ${area.addr2}</td>
+              <td><button id=${count++} class="add-btn btn btn-warning">추가</button></td>
+            </tr>
+          `;
+          
+                    linePath.push(new kakao.maps.LatLng(area.mapy, area.mapx));
+                    
+                    let markerInfo = {
+                        title: area.title,
+                        contenttypeid: area.contenttypeid,
+                        latlng: new kakao.maps.LatLng(area.mapy, area.mapx),
+                    };
+                    //<button id="btn-select" class="btn btn-outline-success" type="button">선택</button>
+                    positions.push(markerInfo);
+                });
+                document.getElementById("trip-list").innerHTML = tripList;
+                displayMarker();
+                
+            	 // 지도에 표시할 선을 생성합니다
+                var polyline = new kakao.maps.Polyline({
+                    path: linePath, // 선을 구성하는 좌표배열 입니다
+                    strokeWeight: 5, // 선의 두께 입니다
+                    strokeColor: '#FFAE00', // 선의 색깔입니다
+                    strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+                    strokeStyle: 'solid' // 선의 스타일입니다
+                });
+             
+                polyline.setMap(map);
+                
+                
+                var userSelection = document.getElementsByClassName('add-btn');
+                
+    			var planListDetail = document.getElementById("planListDetail");
+    			
+    			var visited = [];
+    			
+    			for (let i = 0; i < userSelection.length; i++) {
+					visited.push(0);	
+				}
+    			    			
+                for(let i = 0; i < userSelection.length; i++) {
+                  userSelection[i].addEventListener("click", function() {
+                    var selectedPlace = document.getElementById(i);
+                    if(visited[i] == 0){
+						visited[i] = 1;
+						
+						places.push(selectedPlace.parentNode.parentNode.children[1].innerHTML);
+						
+	                    let content = "";
+	                    content += cnt++;
+	                    content += ". ";
+	                    content += selectedPlace.parentNode.parentNode.children[1].innerHTML;
+	                    content += "<br>";
+	                    
+	                    planListDetail.innerHTML += content;
+	                    console.log(selectedPlace.parentNode.parentNode.children[1].innerHTML);
+                    }
+                  })
+                }
+          
+            }
+
+            // 카카오지도
+            var mapContainer = document.getElementById("map"), // 지도를 표시할 div
+                mapOption = {
+                    center: new kakao.maps.LatLng(37.500613, 127.036431), // 지도의 중심좌표
+                    level: 5, // 지도의 확대 레벨
+                };
+
+            // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+            var map = new kakao.maps.Map(mapContainer, mapOption);
+
+            // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+            var mapTypeControl = new kakao.maps.MapTypeControl();
+
+            // 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+            // kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+            map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+
+            // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+            var zoomControl = new kakao.maps.ZoomControl();
+            map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+
+            function displayMarker() {
+                // 마커 이미지의 이미지 주소입니다
+                // var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+                var bounds = new kakao.maps.LatLngBounds();
+
+                for (var i = 0; i < positions.length; i++) {
+                    // 마커를 생성합니다
+                    let marker = new kakao.maps.Marker({
+                        map: map, // 마커를 표시할 지도
+                        position: positions[i].latlng, // 마커를 표시할 위치
+                        title: positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+                        text: 'marker'
+                    });
+
+                    markers.push(marker);
+                    bounds.extend(positions[i].latlng);
+                }
+
+                // 생성된 마커들의 위치를 기준으로 맵을 움직입니다.
+                map.setBounds(bounds);
+            }
+            
+            function moveCenter(lat, lng) {
+                map.setCenter(new kakao.maps.LatLng(lat, lng));
+              }
+
+        </script>
+</body>
+</html>
