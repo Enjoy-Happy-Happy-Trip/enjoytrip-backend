@@ -1,8 +1,13 @@
-package com.ssafy.edu.model;
+package com.discovero.enjoytrip.member.model;
 
 import java.util.List;
 
-public interface IMemberDao {
+import org.apache.ibatis.annotations.Mapper;
+
+@Mapper
+public interface MemberMapper {
+	// TODO: MemberMapper 구현하기
+	
 	boolean registry(MembersDto dto);
 
 	MembersDto login(MembersDto dto);
@@ -16,6 +21,4 @@ public interface IMemberDao {
 	boolean memberDelete(String user_id);
 
 	boolean memberUpdate(MembersDto dto);
-
-	String encryptData(String str);
 }
