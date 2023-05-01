@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.discovero.enjoytrip.member.model.MemberMapper">
+
+	<insert id="registry" parameterType="membersDto">
+		insert into members(user_id,user_name,user_password, email_id,email_domain,join_date,student_no, flag )
+		values (#{user_id}, #{user_name}, #{user_password}, #{email_id}, #{email_domain}, now(), #{student_no}, #{flag})
+	</insert>
+	
+	<select id="login" parameterType="membersDto" resultType="membersDto">
+		select user_id,user_name, email_id,email_domain
+		from members where user_id=#{user_id} and user_password=#{user_password}
+	</select>
+
+	<!-- TODO: findpassword 재구현 -->
+	
+	<select id="memberlist" resultType="membersDto">
+		select user_id, user_name,user_password,email_id, email_domain, join_date, student_no
+		from members
+		where flag=0 order by user_id
+	</select>
+	
+	<select id="memberDetail" parameterType="String" resultType="membersDto">
+		select user_id, user_name, user_password, email_id, email_domain, join_date, student_no 
+		from members
+		where user_id=#{user_id}
+	</select>
+	
+	<delete id="memberDelete" parameterType="String">
+		delete from board where user_id=#{user_id}
+		delete from members where user_id=#{user_id}
+	</delete>
+	
+	<update id="memberUpdate" parameterType="membersDto">
+		update members set user_name=#{user_name}, user_password=#{user_password}, email_id=#{email_id}, email_domain=#{email_domain}
+		where user_id=#{user_id}
+	</update>
+	
+</mapper>

@@ -1,4 +1,4 @@
-package com.ssafy.edu.model;
+package com.discovero.enjoytrip.member.model;
 
 public class MembersDto {
 	private String user_id;
