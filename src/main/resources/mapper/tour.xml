@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.discovero.enjoytrip.tour.model.TourMapper">
+
+	<resultMap type="tourDto" id="tour">
+		<result column="first_image" property="imageUrl"/>
+		<result column="title" property="placeName"/>
+		<result column="addr1" property="address"/>
+		<result column="latitude" property="latitude"/>
+		<result column="longitude" property="longitude"/>
+	</resultMap>
+
+	<insert id="tourlist" parameterType="map">
+		select first_image, title, addr1, latitude, longitude from attraction_info
+		where sido_code = #{sideCode} and content_type_id =#{contentTypeId} and title like concat('%', #{word}, '%')
+	</insert>
+</mapper>

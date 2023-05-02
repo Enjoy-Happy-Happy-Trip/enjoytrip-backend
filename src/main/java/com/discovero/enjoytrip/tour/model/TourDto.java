@@ -1,7 +1,8 @@
-package com.ssafy.edu.model;
+package com.discovero.enjoytrip.tour.model;
 
 import java.math.BigDecimal;
 
+// TODO: contentId, contentTypeId, desc 추가하기
 public class TourDto {
 	private String imageUrl;
 	private String placeName;
