@@ -20,13 +20,13 @@
 					<c:if test="${sessionScope.login.user_id != 'admin'}">
 						<li><a>[${login.user_name}]님 안녕하세요</a></li>
 						<li><a href="${root}/board/boardlist">Board</a></li>
-						<li><a href="${root}/tour/tourinfo.html">TourInfo</a></li>
+						<li><a href="${root}/tourinfo.html">TourInfo</a></li>
 						<li><a href="${root}/member/signout">Sign Out</a></li>
 					</c:if>
 					<c:if test="${sessionScope.login.user_id == 'admin'}">
 						<li><a>[${login.user_name}]님 안녕하세요</a></li>
 						<li><a href="${root}/board/boardlist">Board</a></li>
-						<li><a href="${root}/tour/tourinfo.html">TourInfo</a></li>
+						<li><a href="${root}/tourinfo.html">TourInfo</a></li>
 						<li><a href="${root}/member/memberlist">Admin Page</a></li>
 						<li><a href="${root}/member/signout">Sign Out</a></li>					
 					</c:if>
