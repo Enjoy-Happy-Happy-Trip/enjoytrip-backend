@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.discovero.enjoytrip.attraction.model.AttractionMapper">
+
+	<resultMap type="attractionDto" id="attraction">
+		<result column="content_id" property="contentId" />
+		<result column="content_type_id" property="contentTypeId" />
+		<result column="title" property="title" />
+		<result column="addr1" property="addr" />
+		<result column="tel" property="tel" />
+		<result column="first_image" property="firstImage" />
+		<result column="readcount" property="readCount" />
+		<result column="latitude" property="latitude" />
+		<result column="longitude" property="longitude" />
+	</resultMap>
+
+	<select id="selectAttractionsBySearchInfo"
+		parameterType="attractionSearchDto" resultMap="attraction">
+		select content_id, content_type_id, title, addr1, tel, first_image,
+		readcount, latitude, longitude from attraction_info
+		<where>
+			sido_code = #{sidoCode} and title like concat('%', #{keyword}, '%')
+			<if test="contentTypeId != 0">
+				and content_type_id =#{contentTypeId}
+			</if>
+		</where>
+	</select>
+</mapper>

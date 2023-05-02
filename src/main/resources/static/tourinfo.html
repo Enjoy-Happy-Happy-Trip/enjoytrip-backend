@@ -277,32 +277,34 @@
             // 위 데이터를 가지고 공공데이터에 요청.
             // 받은 데이터를 이용하여 화면 구성.
             document.getElementById("btn-search").addEventListener("click", () => {
-                let searchUrl = `https://apis.data.go.kr/B551011/KorService1/searchKeyword1?serviceKey=${serviceKey}&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=A`;
-                linePath = [];
-                
-                let areaCode = document.getElementById("search-area").value;
-                let contentTypeId = document.getElementById("search-content-id").value;
-                let keyword = document.getElementById("search-keyword").value;
-
-                if (parseInt(areaCode)) searchUrl += `&areaCode=${areaCode}`;
-                if (parseInt(contentTypeId)) searchUrl += `&contentTypeId=${contentTypeId}`;
-                if (!keyword) {
-                    alert("검색어 입력 필수!!!");
-                    return;
-                } else searchUrl += `&keyword=${keyword}`;
+				let searchUrl = makeSearchUrl();
+				console.log(searchUrl);
 
                 fetch(searchUrl)
                     .then((response) => response.json())
                     .then((data) => makeList(data));
             });
+
+			function makeSearchUrl() {
+				let areaCode = document.getElementById("search-area").value;
+                let contentTypeId = document.getElementById("search-content-id").value;
+                let keyword = document.getElementById("search-keyword").value;
+	// 		    console.log(areaCode, gugunCode, content, keyword);
+				let searchUrl = "/attraction/attractionlist?";
+
+				searchUrl += "sidoCode=" + areaCode;
+				searchUrl += "&contentTypeId=" + contentTypeId;
+				searchUrl += "&keyword=" + keyword;
+				return searchUrl;
+			}
             
             var positions; // marker 배열.
             var markers;
             function makeList(data) {
+				console.log(data);
             	var count = 0;
             	
                 document.querySelector("table").setAttribute("style", "display: ;");
-                let trips = data.response.body.items.item;
                 let tripList = ``;
                 if (markers != null) {
                     for (i = 0; i < markers.length; i++) {
@@ -314,22 +316,22 @@
                 positions = [];
                 linePath = [];
                                 
-                trips.forEach((area) => {
+                data.forEach((area) => {
                     tripList += `
-            <tr onclick="moveCenter(${area.mapy}, ${area.mapx});">
-              <td><img src="${area.firstimage}" width="100px"></td>
+            <tr onclick="moveCenter(${area.latitude}, ${area.longitude});">
+              <td><img src="${area.firstImage}" width="100px"></td>
               <td>${area.title}</td>
-              <td>${area.addr1} ${area.addr2}</td>
+              <td>${area.addr}</td>
               <td><button id=${count++} class="add-btn btn btn-warning">추가</button></td>
             </tr>
           `;
           
-                    linePath.push(new kakao.maps.LatLng(area.mapy, area.mapx));
+                    linePath.push(new kakao.maps.LatLng(area.latitude, area.longitude));
                     
                     let markerInfo = {
                         title: area.title,
-                        contenttypeid: area.contenttypeid,
-                        latlng: new kakao.maps.LatLng(area.mapy, area.mapx),
+                        contenttypeid: area.contentTypeId,
+                        latlng: new kakao.maps.LatLng(area.latitude, area.longitude),
                     };
                     //<button id="btn-select" class="btn btn-outline-success" type="button">선택</button>
                     positions.push(markerInfo);
