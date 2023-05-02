@@ -4,7 +4,7 @@
 <nav class="site-nav">
 	<div class="container">
 		<div class="site-navigation">
-			<a href="${root}/index.jsp" class="logo m-0">Enjoy Trip <span
+			<a href="/" class="logo m-0">Enjoy Trip <span
 				class="text-primary">.</span></a>
 			<ul
 				class="js-clone-nav d-none d-lg-inline-block text-left site-menu float-right">
