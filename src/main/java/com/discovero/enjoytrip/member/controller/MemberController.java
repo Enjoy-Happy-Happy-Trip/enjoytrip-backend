@@ -1,5 +1,8 @@
 package com.discovero.enjoytrip.member.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.discovero.enjoytrip.member.model.IMemberService;
 import com.discovero.enjoytrip.member.model.MembersDto;
@@ -108,6 +112,21 @@ public class MemberController {
 		return "redirect:/member/memberlist";
 	}
 	
+	// login여부를 front에게 알려줍니다. (1 : login 되어있음, 2 : admin, 0 : login 안되어 있음)
+	@GetMapping("/check")
+	@ResponseBody
+	public Map<String, Integer> check(HttpSession session) {
+		Map<String, Integer> loginInfo = new HashMap<>();
+		MembersDto login = (MembersDto) session.getAttribute("login");
+		if (login == null) {
+			loginInfo.put("isLogin", 0);
+		} else if (login.getUser_id().equals("admin")) {
+			loginInfo.put("isLogin", 2);
+		} else {
+			loginInfo.put("isLogin", 1);
+		}
+		return loginInfo;
+	}
 }
 
 
