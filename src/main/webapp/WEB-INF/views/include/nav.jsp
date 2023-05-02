@@ -13,7 +13,7 @@
 				<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 				<c:if test="${empty sessionScope.login}">
 					<li><a href="${root}/board/boardlist">Board</a></li>
-					<li><a href="${root}/tour/tourinfo.html">TourInfo</a></li>
+					<li><a href="${root}/tourinfo.html">TourInfo</a></li>
 					<li><a href="${root}/member/signin">Sign In</a></li>
 				</c:if>
 				<c:if test="${not empty sessionScope.login}">
