@@ -253,22 +253,14 @@
             	
             	// 계획 저장 버튼
                 document.getElementById("savePlan").addEventListener("click", () => {
-                	var xhr = new XMLHttpRequest();
-                	var contextPath = window.location.pathname.split('/')[1];
-                	console.log(contextPath); // output: "your-web-app-context-path"
-                	
-                	contextPath += "/tour?action=savePlan";
-                	
-                	xhr.open('POST', contextPath, true);
-                	xhr.setRequestHeader('Content-Type', 'application/json'); // set the content type if you're sending JSON data
-                	xhr.onreadystatechange = function() {
-                	    if (xhr.readyState === 4 && xhr.status === 200) {
-                	        // handle the server response here
-                	        console.log(xhr.responseText);
-                	    }
-                	};
-                	
-                	xhr.send(JSON.stringify(places)); // send the data as a JSON string
+                	fetch('/tour/saveplan', {
+                		method: 'POST',
+                		headers: {
+                			'Content-Type': 'application/json'
+                		},
+                		body: JSON.stringify(places)
+                	})
+                	.then(window.location.href='/')
                 });
             });
 

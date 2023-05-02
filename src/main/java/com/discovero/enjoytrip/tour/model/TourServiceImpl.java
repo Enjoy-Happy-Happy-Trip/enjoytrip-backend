@@ -31,10 +31,24 @@ public class TourServiceImpl implements ITourService {
 	}
 
 	@Override
-	public void savePlan(String[] placeNames) {
+	public void savePlan(String[] placeNames, String user_id) {
+		tourMapper.savePlan(user_id);
+		
+		int order = 1;
+		int plan_id = tourMapper.getLastInsertId();
+
 		for (String placeName : placeNames) {
-			tourMapper.savePlan(placeName);
+			int content_id = tourMapper.getContentId(placeName);
+			System.out.println(content_id);
+			
+			tourMapper.savePlanDetail(content_id, plan_id, order++);
 		}
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("user_id", user_id);
+		map.put("plan_id", plan_id);
+		
+		tourMapper.saveUserSchedule(user_id, plan_id);
 	}
 
 }
