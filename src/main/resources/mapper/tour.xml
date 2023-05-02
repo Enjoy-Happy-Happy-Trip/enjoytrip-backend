@@ -12,8 +12,28 @@
 		<result column="longitude" property="longitude"/>
 	</resultMap>
 
-	<insert id="tourlist" parameterType="map">
-		select first_image, title, addr1, latitude, longitude from attraction_info
-		where sido_code = #{sideCode} and content_type_id =#{contentTypeId} and title like concat('%', #{word}, '%')
+	<insert id="savePlan" parameterType="String">
+		insert into plan(user_id)
+		values(#{user_id})
 	</insert>
+	
+	<insert id="savePlanDetail" parameterType="int">
+		insert into plan_detail(plan_id, content_id, `order`)
+		values(#{plan_id},#{content_id}, #{order})
+	</insert>
+	
+	<insert id="saveUserSchedule" parameterType="map">
+		insert into user_schedule(user_id, plan_id)
+		values(#{user_id}, #{plan_id})
+	</insert>
+	
+	<select id="getLastInsertId" resultType="int">
+		select last_insert_id()
+	</select>
+	
+	<select id="getContentId" parameterType="String" resultType="int">
+		select content_id from attraction_info
+		where title=#{placeName}
+	</select>
+	
 </mapper>

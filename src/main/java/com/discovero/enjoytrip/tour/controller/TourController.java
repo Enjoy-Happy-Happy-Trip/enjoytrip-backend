@@ -1,14 +1,24 @@
 package com.discovero.enjoytrip.tour.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import com.discovero.enjoytrip.member.model.MembersDto;
 import com.discovero.enjoytrip.tour.model.ITourService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-@Controller
+@RestController
 @RequestMapping("/tour")
 public class TourController {
 	private static final Logger logger = LoggerFactory.getLogger(TourController.class);
@@ -20,5 +30,18 @@ public class TourController {
 		this.tourService = tourService;
 	}
 	
-	// TODO: Controller 메서드 구현
+	@PostMapping("/saveplan")
+	public ResponseEntity<String> saveplan(@RequestBody String json, HttpSession session) {
+	    ObjectMapper mapper = new ObjectMapper();
+	    MembersDto mdto = (MembersDto) session.getAttribute("login");
+	    String user_id = mdto.getUser_id();
+	    
+	    try {
+	        String[] placeNames = mapper.readValue(json, String[].class);
+	        tourService.savePlan(placeNames, user_id);
+	        return ResponseEntity.ok("Success");
+	    } catch (JsonProcessingException e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error converting JSON to data");
+	    }
+	}
 }
