@@ -8,11 +8,11 @@ public class AttractionDto {
 	private String tel;
 	private String firstImage;
 	private int readCount;
-	private int latitude;
-	private int longitude;
+	private double latitude;
+	private double longitude;
 	
 	public AttractionDto(int contentId, int contentTypeId, String title, String addr, String tel, String firstImage,
-			int readCount, int latitude, int longitude) {
+			int readCount, double latitude, double longitude) {
 		super();
 		this.contentId = contentId;
 		this.contentTypeId = contentTypeId;
@@ -81,19 +81,19 @@ public class AttractionDto {
 		this.readCount = readCount;
 	}
 
-	public int getLatitude() {
+	public double getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(int latitude) {
+	public void setLatitude(double latitude) {
 		this.latitude = latitude;
 	}
 
-	public int getLongitude() {
+	public double getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(int longitude) {
+	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
 
