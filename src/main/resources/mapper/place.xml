@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.discovero.enjoytrip.place.model.PlaceMapper">
+
+	<insert id="insertReview" parameterType="placeReviewDto">
+		insert into place_review (user_id, content_id, user_review, register_time)
+		values
+		(#{user_id}, #{content_id}, #{user_review}, now())
+	</insert>
+	
+	<delete id="deleteReviewById" parameterType="int">
+		delete from place_review
+		where review_id=#{review_id}
+	</delete>
+	
+	<select id="selectAllPlaceReview" resultType="placeReviewDto">
+		select * from place_review
+	</select>
+	
+	<select id="selectHotPlaceByContentId" parameterType="int" resultType="hotPlaceDto">
+		select * from hotplace
+		where content_id=#{content_id}
+	</select>
+	
+	<!-- @Param 으로 contentId(int), updateValue(int) 를 받음  -->
+	<update id="updateHotPlaceReviewCountById">
+		update hotplace set review_count=review_count + #{updateValue}
+		where content_id=#{contentId}
+	</update>
+	
+	<select id="selectTopNPlace">
+		select * from hotplace
+		order by review_count desc
+		limit #{count}
+	</select>
+	
+</mapper>

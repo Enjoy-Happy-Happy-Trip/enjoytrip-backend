@@ -28,4 +28,10 @@
 			</if>
 		</where>
 	</select>
+	
+	<select id="selectAttractionById" parameterType="int" resultMap="attraction">
+		select content_id, content_type_id, title, addr1, tel, first_image,
+		readcount, latitude, longitude from attraction_info
+		where content_id = #{contentId}
+	</select>
 </mapper>
