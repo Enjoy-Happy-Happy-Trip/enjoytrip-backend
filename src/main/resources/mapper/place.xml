@@ -25,7 +25,7 @@
 	</select>
 	
 	<!-- @Param 으로 contentId(int), updateValue(int) 를 받음  -->
-	<update id="updateHotPlaceReviewCountByContentId">
+	<update id="updateHotPlaceReviewCountById">
 		update hotplace set review_count=review_count + #{updateValue}
 		where content_id=#{contentId}
 	</update>
