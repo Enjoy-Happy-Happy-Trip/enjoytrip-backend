@@ -6,8 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface AttractionMapper {
-
 	List<AttractionDto> selectAttractionsBySearchInfo(AttractionSearchDto asDto);
-	
-
+	AttractionDto selectAttractionById(int contentId);
 }
