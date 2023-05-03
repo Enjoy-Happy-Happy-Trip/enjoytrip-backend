@@ -31,8 +31,8 @@ public class TourServiceImpl implements ITourService {
 	}
 
 	@Override
-	public void savePlan(String[] placeNames, String user_id) {
-		tourMapper.savePlan(user_id);
+	public void savePlan(String[] placeNames, String user_id, String plan_title, String start_date, String end_date) {
+		tourMapper.savePlan(user_id, plan_title);
 		
 		int order = 1;
 		int plan_id = tourMapper.getLastInsertId();
@@ -47,8 +47,10 @@ public class TourServiceImpl implements ITourService {
 		Map<String, Object> map = new HashMap<>();
 		map.put("user_id", user_id);
 		map.put("plan_id", plan_id);
+		map.put("start_date", start_date);
+		map.put("end_date", end_date);
 		
-		tourMapper.saveUserSchedule(user_id, plan_id);
+		tourMapper.saveUserSchedule(map);
 	}
 
 }
