@@ -30,4 +30,10 @@
 		where content_id=#{contentId}
 	</update>
 	
+	<select id="selectTopNPlace">
+		select * from hotplace
+		order by review_count desc
+		limit #{count}
+	</select>
+	
 </mapper>
