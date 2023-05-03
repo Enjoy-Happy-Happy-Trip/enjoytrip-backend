@@ -116,6 +116,7 @@ public class MemberController {
 	@GetMapping("/check")
 	@ResponseBody
 	public Map<String, Integer> check(HttpSession session) {
+		logger.info("GET check called");
 		Map<String, Integer> loginInfo = new HashMap<>();
 		MembersDto login = (MembersDto) session.getAttribute("login");
 		if (login == null) {
