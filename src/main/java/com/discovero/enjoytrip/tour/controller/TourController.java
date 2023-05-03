@@ -37,8 +37,21 @@ public class TourController {
 	    String user_id = mdto.getUser_id();
 	    
 	    try {
-	        String[] placeNames = mapper.readValue(json, String[].class);
-	        tourService.savePlan(placeNames, user_id);
+	        String[] tmp = mapper.readValue(json, String[].class);
+	        String plan_title = tmp[tmp.length-3];
+	        String start_date = tmp[tmp.length-2];
+	        String end_date = tmp[tmp.length-1];
+	        
+	        System.out.println(start_date);
+	        System.out.println(end_date);
+	        
+	        String[] placeNames = new String[tmp.length-3];
+	        
+	        for (int i = 0; i < tmp.length-3; i++) {
+				placeNames[i] = tmp[i];
+			}
+	        
+	        tourService.savePlan(placeNames, user_id, plan_title, start_date, end_date);
 	        return ResponseEntity.ok("Success");
 	    } catch (JsonProcessingException e) {
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error converting JSON to data");
