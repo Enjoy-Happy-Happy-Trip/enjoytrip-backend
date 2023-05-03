@@ -159,12 +159,17 @@
             
             // 계획 리스트 생성 버튼
             document.getElementById("btn-plan").addEventListener("click", () => {
+            	let planTitle = document.createElement("input");
+            	planTitle.setAttribute("type", "text");
+            	planTitle.setAttribute("placeholder", "여행 이름을 정해주세요");
+            	planTitle.setAttribute("id", "planTitle");
             	let planList = document.createElement("div");
             	planList.setAttribute("class", "alert alert-primary mt-3 text-center fw-bold");
             	planList.innerHTML="여행 계획";
             	
             	let rightContent = document.getElementById("rightContent");
             	rightContent.innerHTML = "";
+            	rightContent.appendChild(planTitle);
             	rightContent.appendChild(planList);
             	
             	let planListDetail = document.createElement("div");
@@ -181,6 +186,9 @@
             	
             	// 계획 저장 버튼
                 document.getElementById("savePlan").addEventListener("click", () => {
+                	let planTitle = document.getElementById("planTitle").value;
+                	places.push(planTitle);
+                	
                 	fetch('/tour/saveplan', {
                 		method: 'POST',
                 		headers: {
