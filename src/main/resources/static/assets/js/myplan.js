@@ -11,7 +11,9 @@ fetch("/plan/getmyplan")
                 const row = document.createElement("tr");
                 row.innerHTML = `
           <td>${planNo++}</td>
-          <td><a href="/plan/detail/${plan.schedule_id}">${plan.plan_title}</a></td>
+          <td><a href="../myplandetail.html?scheduleId=${plan.schedule_id}">${
+                    plan.plan_title
+                }</a></td>
           <td>${plan.start_date}</td>
           <td>${plan.end_date}</td>
         `;
