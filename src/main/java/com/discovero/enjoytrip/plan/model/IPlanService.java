@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface IPlanService {
 
-	List<PlanDto> getMyPlan(String user_id);
+	List<UserSceduleDto> getMyPlan(String user_id);
 	
 }

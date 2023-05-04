@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.discovero.enjoytrip.member.model.MembersDto;
 import com.discovero.enjoytrip.plan.model.IPlanService;
 import com.discovero.enjoytrip.plan.model.PlanDto;
+import com.discovero.enjoytrip.plan.model.UserSceduleDto;
 
 @RestController
 @RequestMapping("/plan")
@@ -28,15 +29,15 @@ public class PlanController {
 	}
 	
 	@GetMapping("/getmyplan")
-	public List<PlanDto> getmyplan(HttpSession session) throws Exception {
+	public List<UserSceduleDto> getmyplan(HttpSession session) throws Exception {
 		logger.info("GET getmyplan called");
 		
 		MembersDto mdto = (MembersDto) session.getAttribute("login");
 		String user_id = mdto.getUser_id();
 		
-		List<PlanDto> plans = planService.getMyPlan(user_id);
+		List<UserSceduleDto> scedules = planService.getMyPlan(user_id);
 		
-		return plans;
+		return scedules;
 	}
 }
 

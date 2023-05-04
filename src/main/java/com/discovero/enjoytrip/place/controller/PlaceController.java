@@ -70,4 +70,10 @@ public class PlaceController {
 		return hotplaces;
 	}
 	
+	/*
+	 * @GetMapping("/detail/{planId}")
+	 * 
+	 * @ResponseBody public <>
+	 */
+	
 }
