@@ -19,6 +19,7 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
                         <li><a href="${root}/board/boardlist">Board</a></li>
                         <li><a href="${root}/tourinfo.html">TourInfo</a></li>
                         <li><a href="${root}/myplan.html">My Plans</a></li>
+                        <li><a href="${root}/reviews.html">Reviews</a></li>                        
                         <li><a href="${root}/member/signout">Sign Out</a></li>
                     </c:if>
                     <c:if test="${sessionScope.login.user_id == 'admin'}">

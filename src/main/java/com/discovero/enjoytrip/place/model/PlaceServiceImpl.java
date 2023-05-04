@@ -36,8 +36,16 @@ public class PlaceServiceImpl implements IPlaceService {
 	}
 
 	@Override
-	public List<PlaceReviewDto> findtAllPlaceReview() {
-		return placeMapper.selectAllPlaceReview();
+	public List<PlaceReviewDto> findAllPlaceReview() {
+		List<PlaceReviewDto> reviews = placeMapper.selectAllPlaceReview();
+		
+		System.out.println("reviews successfully called");
+		
+		for (PlaceReviewDto review : reviews) {
+			review.setTitle(attractionMapper.selectAttractionById(review.getContent_id()).getTitle());
+		}
+		
+		return reviews;
 	}
 
 	@Override
