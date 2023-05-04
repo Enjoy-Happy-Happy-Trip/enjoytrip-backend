@@ -360,7 +360,7 @@
             <tr onclick="moveCenter(${area.latitude}, ${area.longitude});">
 				<td class="content-id" style="display:none">${area.contentId}</td>
               <td><img src="${area.firstImage}" width="100px"></td>
-              <td>${area.title}</td>
+              <td id="areaTitle${count}">${area.title}</td>
               <td>${area.addr}</td>
               <td><button id=${count++} class="add-btn btn btn-warning">추가</button></td>
 			  <td><button class="review-btn btn btn-warning scrollto">Reivew 쓰기</button></td>
@@ -408,16 +408,18 @@
                     if(visited[i] == 0){
 						visited[i] = 1;
 						
-						places.push(selectedPlace.parentNode.parentNode.children[2].innerHTML);
+						let areaTitle = document.getElementById("areaTitle"+i).innerHTML;
+						
+						places.push(areaTitle);
 						
 	                    let content = "";
 	                    content += cnt++;
 	                    content += ". ";
-	                    content += selectedPlace.parentNode.parentNode.children[2].innerHTML;
+	                    content += areaTitle;
 	                    content += "<br>";
 	                    
 	                    planListDetail.innerHTML += content;
-	                    console.log(selectedPlace.parentNode.parentNode.children[2].innerHTML);
+	                    console.log(areaTitle);
                     }
                   })
                 }
