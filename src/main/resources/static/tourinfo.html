@@ -408,16 +408,16 @@
                     if(visited[i] == 0){
 						visited[i] = 1;
 						
-						places.push(selectedPlace.parentNode.parentNode.children[1].innerHTML);
+						places.push(selectedPlace.parentNode.parentNode.children[2].innerHTML);
 						
 	                    let content = "";
 	                    content += cnt++;
 	                    content += ". ";
-	                    content += selectedPlace.parentNode.parentNode.children[1].innerHTML;
+	                    content += selectedPlace.parentNode.parentNode.children[2].innerHTML;
 	                    content += "<br>";
 	                    
 	                    planListDetail.innerHTML += content;
-	                    console.log(selectedPlace.parentNode.parentNode.children[1].innerHTML);
+	                    console.log(selectedPlace.parentNode.parentNode.children[2].innerHTML);
                     }
                   })
                 }
