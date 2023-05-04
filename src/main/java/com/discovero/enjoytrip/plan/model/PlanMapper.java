@@ -4,7 +4,12 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.discovero.enjoytrip.attraction.model.AttractionDto;
+
 @Mapper
 public interface PlanMapper {
-	List<UserSceduleDto> getMyPlan(String user_id);
+	List<UserScheduleDto> getMyPlan(String user_id);
+	int[] getAttractionId(int plan_id);
+	UserScheduleDto getSchedule(int schedule_id);
+	String getPlanTitle(int plan_id);
 }

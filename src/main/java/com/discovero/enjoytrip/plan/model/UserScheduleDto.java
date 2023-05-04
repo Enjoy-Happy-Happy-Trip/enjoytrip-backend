@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.discovero.enjoytrip.attraction.model.AttractionDto;
 
-public class UserSceduleDto {
+public class UserScheduleDto {
 	private int schedule_id;
 	private String user_id;
 	private int plan_id;
@@ -13,16 +13,25 @@ public class UserSceduleDto {
 	private String end_date;
 	private List<AttractionDto> attractions;
 	
-	public UserSceduleDto() {
+	public UserScheduleDto() {
 		super();
 	}
 
-	public UserSceduleDto(int schedule_id, String user_id, int plan_id, String plan_title, String start_date, String end_date) {
+	public UserScheduleDto(int schedule_id, String user_id, int plan_id, String plan_title, String start_date, String end_date) {
 		super();
 		this.schedule_id = schedule_id;
 		this.user_id = user_id;
 		this.plan_id = plan_id;
 		this.plan_title = plan_title;
+		this.start_date = start_date;
+		this.end_date = end_date;
+	}
+	
+	public UserScheduleDto(int schedule_id, String user_id, int plan_id, String start_date, String end_date) {
+		super();
+		this.schedule_id = schedule_id;
+		this.user_id = user_id;
+		this.plan_id = plan_id;
 		this.start_date = start_date;
 		this.end_date = end_date;
 	}
