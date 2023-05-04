@@ -13,8 +13,8 @@
 	</resultMap>
 
 	<insert id="savePlan" parameterType="String">
-		insert into plan(user_id)
-		values(#{user_id})
+		insert into plan(user_id, plan_title)
+		values(#{user_id}, #{plan_title})
 	</insert>
 	
 	<insert id="savePlanDetail" parameterType="int">
@@ -23,8 +23,8 @@
 	</insert>
 	
 	<insert id="saveUserSchedule" parameterType="map">
-		insert into user_schedule(user_id, plan_id)
-		values(#{user_id}, #{plan_id})
+		insert into user_schedule(user_id, plan_id, start_date, end_date)
+		values(#{user_id}, #{plan_id}, #{start_date}, #{end_date})
 	</insert>
 	
 	<select id="getLastInsertId" resultType="int">

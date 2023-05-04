@@ -49,8 +49,8 @@ public class PlaceController {
 	@GetMapping("/reviewlist")
 	@ResponseBody
 	public List<PlaceReviewDto> reviewlist() {
-		logger.debug("GET reviewlist called");
-		List<PlaceReviewDto> list = placeService.findtAllPlaceReview();
+		logger.info("GET reviewlist called");
+		List<PlaceReviewDto> list = placeService.findAllPlaceReview();
 		return list;
 	}
 	
