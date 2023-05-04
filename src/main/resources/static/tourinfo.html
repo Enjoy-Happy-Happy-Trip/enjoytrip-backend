@@ -20,6 +20,7 @@
 	crossorigin="anonymous"></script>
 <!-- common css -->
 <link rel="stylesheet" href="./assets/css/common/style.css" />
+<link rel="stylesheet" href="./assets/css/tourInfo.css" />
 </head>
 
 <body>
@@ -88,6 +89,7 @@
 								<th>관광지명</th>
 								<th>주소</th>
 								<th> </th>
+								<th> Review 쓰기 </th>
 							</tr>
 						</thead>
 						<tbody id="trip-list"></tbody>
@@ -106,6 +108,34 @@
 		</div>
 		<!-- 중앙 content end -->
 
+		<!-- 모달 창을 위한 HTML 코드 START-->
+		<div id="review-modal" class="hidden custom-modal">
+			<div class="modal-background"></div>
+			<div class="modal-content">
+				<div id="modal-content-id" class="hidden"></div>
+				<h2 id="modal-content-title"></h2>
+				<div class="modal-body">
+					<div class="mb-3">
+					<div id="modal-content-id" style="display: none;"></div>
+					<div id="modal-content-title"></div>
+					<label for="loginid" class="form-label">리뷰 쓰기</label>
+					<input
+						type="text"
+						class="form-control"
+						id="review"
+						placeholder="간단한 리뷰를 써주세요"
+					/>
+					</div>
+				</div>
+				<div>
+					<button id="review-submit-btn" class="btn btn-primary">리뷰 등록</button>
+					<button id="modal-close" class="btn btn-danger">Close</button>
+				</div>
+				
+			</div>
+		</div>
+		<!-- 모달 창을 위한 HTML 코드 END-->
+
 		<script
 			src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
 			integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
@@ -119,6 +149,7 @@
 		
 		<!-- 로그인 여부 확인 js -->
 		<script src="./assets/js/common/checklogin.js"></script>
+		
 
 		<script>
 			/* 
@@ -210,8 +241,72 @@
 
                 fetch(searchUrl)
                     .then((response) => response.json())
-                    .then((data) => makeList(data));
+                    .then((data) => {
+						makeList(data);
+						const modal = document.querySelector("#review-modal");
+						const closeButton = modal.querySelector("#modal-close");
+						const modalBackground = modal.querySelector(".modal-background");
+						closeButton.addEventListener("click", displayModal)
+						modalBackground.addEventListener("click", displayModal);
+
+						const reviewSubmitBtn = document.querySelector("#review-submit-btn");
+						reviewSubmitBtn.addEventListener("click", (event) => {
+							const userReview = {
+								content_id: document.querySelector("#modal-content-id").innerText,
+								user_review: document.querySelector("#review").value
+							}
+							document.querySelector("#review").value = "";
+
+							console.log(userReview);
+
+							fetch("/place/writereview", {
+								method: "POST",
+								headers: {
+									"Content-Type": "application/json",
+								},
+								body: JSON.stringify(userReview),
+							})
+							.then(response => {
+								if (response.status === 200) {
+									alert("리뷰가 성공적으로 등록되었습니다! ヾ(≧ ▽ ≦)ゝ")
+									displayModal();
+								} else {
+									alert("리뷰가 제대로 등록되지 않았습니다. 다시 시도해주세요.");
+								}
+							})
+						});
+
+						const reviewBtns = document.querySelectorAll(".review-btn");
+						// console.log(reviewBtns)
+						reviewBtns.forEach(btn => {
+							btn.addEventListener("click", (event) => {
+								const loginCheckUrl = "/member/check";
+								fetch(loginCheckUrl)
+									.then((response) => response.json())
+									.then((data) => {
+										if (data.isLogin === 0) {
+											alert("로그인을 먼저 해주세요")
+										} else {
+											const contentId = event.target.parentNode.parentNode.querySelector(".content-id").innerText;
+											const contentTitle = event.target.parentNode.parentNode.querySelectorAll("td")[2].innerText;
+											console.log(contentTitle)
+											document.querySelector("#modal-content-id").innerText = contentId;
+											document.querySelector("#modal-content-title").innerText = contentTitle;
+
+											// modal을 킨다.
+											displayModal();
+										}
+
+									});
+							})
+						})
+					});
             });
+
+			function displayModal() {
+				const modal = document.querySelector("#review-modal");
+				modal.classList.toggle("hidden");
+			}
 
 			function makeSearchUrl() {
 				let areaCode = document.getElementById("search-area").value;
@@ -246,10 +341,12 @@
                 data.forEach((area) => {
                     tripList += `
             <tr onclick="moveCenter(${area.latitude}, ${area.longitude});">
+				<td class="content-id" style="display:none">${area.contentId}</td>
               <td><img src="${area.firstImage}" width="100px"></td>
               <td>${area.title}</td>
               <td>${area.addr}</td>
               <td><button id=${count++} class="add-btn btn btn-warning">추가</button></td>
+			  <td><button class="review-btn btn btn-warning scrollto">Reivew 쓰기</button></td>
             </tr>
           `;
           
@@ -307,7 +404,6 @@
                     }
                   })
                 }
-          
             }
 
             // 카카오지도
