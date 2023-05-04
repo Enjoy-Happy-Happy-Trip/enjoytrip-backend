@@ -16,7 +16,7 @@ const navLinkInfos = {
         content: "Sign Out",
     },
     myPlan: {
-        href: "/plan/myplanlist",
+        href: "../myplan.html",
         content: "My Plans",
     },
     adminPage: {
@@ -24,9 +24,9 @@ const navLinkInfos = {
         content: "Admin Page",
     },
     reviews: {
-    	href: "/place/reviewlist",
-    	content: "Review List"
-    }
+        href: "../reviews.html",
+        content: "Review List",
+    },
 };
 
 const navLinks = document.querySelector("#nav-links");
