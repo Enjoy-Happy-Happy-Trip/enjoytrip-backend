@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.discovero.enjoytrip.tour.model.TourMapper;
-
 @Service
 public class PlanServiceImpl implements IPlanService {
 	
@@ -17,14 +15,14 @@ public class PlanServiceImpl implements IPlanService {
 	}
 
 	@Override
-	public List<PlanDto> getMyPlan(String user_id) {
-		List<PlanDto> myPlan = planMapper.getMyPlan(user_id);
+	public List<UserSceduleDto> getMyPlan(String user_id) {
+		List<UserSceduleDto> myScedules = planMapper.getMyPlan(user_id);
 		
-		for (int i = 0; i < myPlan.size(); i++) {
-			System.out.println(myPlan.get(i).toString());
+		for (int i = 0; i < myScedules.size(); i++) {
+			System.out.println(myScedules.get(i).toString());
 		}
 		
-		return myPlan;
+		return myScedules;
 	}
 
 }
