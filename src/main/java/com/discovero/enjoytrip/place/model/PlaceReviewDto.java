@@ -7,6 +7,11 @@ public class PlaceReviewDto {
 	private String user_review;
 	private String register_time;
 	
+	public PlaceReviewDto() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public PlaceReviewDto(int review_id, String user_id, int content_id, String user_review, String register_time) {
 		super();
 		this.review_id = review_id;
@@ -54,5 +59,11 @@ public class PlaceReviewDto {
 
 	public void setRegister_time(String register_time) {
 		this.register_time = register_time;
+	}
+
+	@Override
+	public String toString() {
+		return "PlaceReviewDto [review_id=" + review_id + ", user_id=" + user_id + ", content_id=" + content_id
+				+ ", user_review=" + user_review + ", register_time=" + register_time + "]";
 	}
 }
