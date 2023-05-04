@@ -7,7 +7,7 @@
 	<select id="getMyPlan" parameterType="String" resultType="PlanDto">
 		select distinct p.plan_title, u.start_date, u.end_date 
 		from plan p, user_schedule u
-		where p.user_id=#{user_id} and p.user_id=u.user_id
+		where p.user_id=#{user_id} and p.plan_id=u.plan_id
 	</select>
 	
 </mapper>

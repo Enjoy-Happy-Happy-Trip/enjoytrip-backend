@@ -23,6 +23,10 @@ const navLinkInfos = {
         href: "/member/memberlist",
         content: "Admin Page",
     },
+    reviews: {
+    	href: "/place/reviewlist",
+    	content: "Review List"
+    }
 };
 
 const navLinks = document.querySelector("#nav-links");
@@ -36,6 +40,7 @@ fetch(loginCheckUrl)
 function makeNav(isLogin) {
     navLinks.appendChild(makeNavList("board"));
     navLinks.appendChild(makeNavList("tourInfo"));
+    navLinks.appendChild(makeNavList("reviews"));
     if (isLogin === 1) {
         // 일반 사용자라면
         navLinks.appendChild(makeNavList("myPlan"));

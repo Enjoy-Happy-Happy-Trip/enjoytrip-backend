@@ -42,9 +42,6 @@ public class TourController {
 	        String start_date = tmp[tmp.length-2];
 	        String end_date = tmp[tmp.length-1];
 	        
-	        System.out.println(start_date);
-	        System.out.println(end_date);
-	        
 	        String[] placeNames = new String[tmp.length-3];
 	        
 	        for (int i = 0; i < tmp.length-3; i++) {

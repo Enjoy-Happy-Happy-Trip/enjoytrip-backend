@@ -7,6 +7,6 @@ import com.discovero.enjoytrip.attraction.model.AttractionDto;
 public interface IPlaceService {
 	void writeReview(PlaceReviewDto prDto);
 	void deleteReviewById(int reviewId);
-	List<PlaceReviewDto> findtAllPlaceReview();
+	List<PlaceReviewDto> findAllPlaceReview();
 	List<AttractionDto> findTopPlace();
 }
