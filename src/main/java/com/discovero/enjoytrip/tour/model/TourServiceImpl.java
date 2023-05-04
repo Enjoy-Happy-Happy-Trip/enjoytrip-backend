@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class TourServiceImpl implements ITourService {
@@ -31,6 +32,7 @@ public class TourServiceImpl implements ITourService {
 	}
 
 	@Override
+	@Transactional
 	public void savePlan(String[] placeNames, String user_id, String plan_title, String start_date, String end_date) {
 		tourMapper.savePlan(user_id, plan_title);
 		
