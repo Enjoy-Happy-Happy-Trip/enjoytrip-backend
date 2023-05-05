@@ -8,12 +8,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.discovero.enjoytrip.member.model.MembersDto;
 import com.discovero.enjoytrip.plan.model.IPlanService;
-import com.discovero.enjoytrip.plan.model.PlanDto;
 import com.discovero.enjoytrip.plan.model.UserScheduleDto;
 
 @RestController
@@ -40,12 +41,10 @@ public class PlanController {
 		return schedules;
 	}
 	
-	@GetMapping("/detail")
-	public UserScheduleDto detail(HttpSession session, int schedule_id) throws Exception {
-		logger.info("GET detail called");
-		
-		MembersDto mdto = (MembersDto) session.getAttribute("login");
-		String user_id = mdto.getUser_id();
+	@GetMapping("/detail/{schedule_id}")
+	@ResponseBody
+	public UserScheduleDto detail(HttpSession session, @PathVariable int schedule_id) throws Exception {
+		logger.debug("GET detail called");
 		
 		UserScheduleDto schedule = planService.getDetail(schedule_id);
 		
