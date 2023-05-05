@@ -6,7 +6,6 @@ const sceduleTable = document.querySelector("#schedule-list");
 
 fetch(`/plan/detail/${scheduleId}`)
     .then((response) => response.json())
-    .then(console.log(data))
     .then((data) => {
         // 1. plan title
         document.querySelector("#plan-title").innerText = data.plan_title;
@@ -21,9 +20,9 @@ fetch(`/plan/detail/${scheduleId}`)
             const row = document.createElement("tr");
             row.innerHTML = `
             <td>${count++}</td>
-      <td>${attraction.title}</td>
-    `;
-            reviewTable.appendChild(row);
+            <td>${attraction.title}</td>
+            `;
+            sceduleTable.appendChild(row);
         });
     })
     .catch((error) => console.error(error));
