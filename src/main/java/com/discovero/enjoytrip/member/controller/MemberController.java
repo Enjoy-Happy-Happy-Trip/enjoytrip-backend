@@ -8,6 +8,8 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -58,26 +61,27 @@ public class MemberController {
 	
 	// 로그인 버튼을 누르면 로그인을 시도합니다.
 	@PostMapping("/loginaf")
-	public String loginaf(MembersDto mdto, HttpSession session, Model model) throws Exception {
-		logger.debug("GET loginaf called");
+	@ResponseBody
+	public ResponseEntity<MembersDto> loginaf(@RequestBody MembersDto mdto, HttpSession session) throws Exception {
+		logger.debug("GET loginaf called loginInfo : {}", mdto);
 		MembersDto login = memberService.login(mdto);
 		if (login != null) {
 			session.setAttribute("login", login);
-			return "redirect:/";
+			ResponseEntity<MembersDto> responseEntity = new ResponseEntity<MembersDto>(login, HttpStatus.OK);
+			return responseEntity;
 		} else {
 			session.invalidate();
-			model.addAttribute("mti", "다시 로그인하기");
-			model.addAttribute("msg", "로그인에 실패했습니다.");
-			return "/member/signin";
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 		}
 	}
 	
 	// 로그아웃 버튼을 누르면 로그아웃을 합니다.
 	@GetMapping("/signout")
-	public String signout(HttpSession session) throws Exception {
+	@ResponseBody
+	public ResponseEntity<Void> signout(HttpSession session) throws Exception {
 		logger.debug("GET signout called");
 		session.invalidate();
-		return "redirect:/";
+		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 	
 	// TODO: 비밀번호 찾기 페이지는 비밀번호 재설정으로 변경해서 재구현
