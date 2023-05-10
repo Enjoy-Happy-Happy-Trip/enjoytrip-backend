@@ -26,7 +26,6 @@ import com.discovero.enjoytrip.member.model.MembersDto;
 
 @Controller
 @RequestMapping("/member")
-@CrossOrigin("*")
 public class MemberController {
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 
