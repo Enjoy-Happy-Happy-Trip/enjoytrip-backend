@@ -29,12 +29,12 @@ public class PlanController {
 		this.planService = planService;
 	}
 	
-	@GetMapping("/getmyplan")
-	public List<UserScheduleDto> getmyplan(HttpSession session) throws Exception {
+	@GetMapping("/getmyplan/{user_id}")
+	public List<UserScheduleDto> getmyplan(@PathVariable String user_id) throws Exception {
 		logger.info("GET getmyplan called");
-		
-		MembersDto mdto = (MembersDto) session.getAttribute("login");
-		String user_id = mdto.getUser_id();
+		 
+//		MembersDto mdto = (MembersDto) session.getAttribute("login");
+//		String user_id = mdto.getUser_id();
 		
 		List<UserScheduleDto> schedules = planService.getMyPlan(user_id);
 		
@@ -43,10 +43,12 @@ public class PlanController {
 	
 	@GetMapping("/detail/{schedule_id}")
 	@ResponseBody
-	public UserScheduleDto detail(HttpSession session, @PathVariable int schedule_id) throws Exception {
+	public UserScheduleDto detail(@PathVariable String schedule_id) throws Exception {
 		logger.debug("GET detail called");
 		
-		UserScheduleDto schedule = planService.getDetail(schedule_id);
+		int id = Integer.parseInt(schedule_id);
+		
+		UserScheduleDto schedule = planService.getDetail(id);
 		
 		return schedule;
 	}
