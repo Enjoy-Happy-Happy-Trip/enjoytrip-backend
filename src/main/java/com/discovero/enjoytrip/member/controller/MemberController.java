@@ -64,6 +64,7 @@ public class MemberController {
 	public ResponseEntity<MembersDto> loginaf(@RequestBody MembersDto mdto, HttpSession session) throws Exception {
 		logger.debug("GET loginaf called loginInfo : {}", mdto);
 		MembersDto login = memberService.login(mdto);
+		
 		if (login != null) {
 			session.setAttribute("login", login);
 			ResponseEntity<MembersDto> responseEntity = new ResponseEntity<MembersDto>(login, HttpStatus.OK);
