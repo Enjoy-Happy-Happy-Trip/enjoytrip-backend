@@ -24,10 +24,7 @@ public class BoardServiceImpl implements IBoardService {
 
 	@Override
 	@Transactional
-	public List<BoardDto> boardlist() {
-		
-		System.out.println(boardMapper.boardlist().size());
-		
+	public List<BoardDto> boardlist() {		
 		return boardMapper.boardlist();
 	}
 

@@ -17,9 +17,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -31,7 +33,7 @@ import com.discovero.enjoytrip.board.model.IBoardService;
 import com.discovero.enjoytrip.member.model.MembersDto;
 import com.discovero.enjoytrip.util.PageNavigation;
 
-@Controller
+@RestController
 @RequestMapping("/board")
 public class BoardController {	
 	private final Logger logger = LoggerFactory.getLogger(BoardController.class);
@@ -65,19 +67,20 @@ public class BoardController {
 	}
 	
 	@GetMapping("/boardlist")
-	public String boardlist(Model model) {
+	public List<BoardDto> boardlist(Model model) {
 		logger.info("GET boardlist called");
-		model.addAttribute("boards", boardService.boardlist());
-		return "board/boardlist";
+		List<BoardDto> boards = boardService.boardlist();
+		return boards;
 	}
 	
-	@GetMapping("/detail")
-	public String detail(BoardDto bdto, Model model) {
+	@GetMapping("/detail/{article_no}")
+	public BoardDto detail(@PathVariable String article_no) {
 		logger.debug("GET detail called");
-		int article_no = bdto.getArticle_no();
+		int articleNo = Integer.parseInt(article_no);
 
-		model.addAttribute("board", boardService.boardDetail(article_no));
-		return "board/boarddetail";
+		BoardDto bdto = boardService.boardDetail(articleNo);
+		System.out.println(bdto.toString());
+		return bdto;
 	}
 	
 	@GetMapping("/delete")
