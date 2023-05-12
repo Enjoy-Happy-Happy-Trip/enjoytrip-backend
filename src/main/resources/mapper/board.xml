@@ -10,7 +10,7 @@
 		<result column="subject" property="subject"/>
 		<result column="content" property="content"/>
 		<result column="hit" property="hit"/>
-		<result column="register_time" property="registerTime"/>
+		<result column="register_time" property="register_time"/>
 	</resultMap>
 	
 	<!-- <resultMap type="boardDto" id="viewArticle" extends="article">
@@ -29,11 +29,11 @@
 	</insert>
 	
 	<select id="boardlist" resultMap="board">
-		select article_no, user_id, subject, content from board
+		select article_no, user_id, subject, content, register_time from board
 		order by article_no
 	</select>
 	
-	<select id="boardDetail" parameterType="int">
+	<select id="boardDetail" parameterType="int" resultType="boardDto">
 		select article_no, user_id, subject, content, hit, register_time from board
 		where article_no=#{article_no}
 	</select>
