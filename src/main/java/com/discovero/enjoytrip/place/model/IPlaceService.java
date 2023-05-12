@@ -9,4 +9,5 @@ public interface IPlaceService {
 	void deleteReviewById(int reviewId);
 	List<PlaceReviewDto> findAllPlaceReview();
 	List<AttractionDto> findTopPlace();
+	PlaceReviewDto getReview(int review_id);
 }

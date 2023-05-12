@@ -13,4 +13,5 @@ public interface PlaceMapper {
 	HotPlaceDto selectHotPlaceByContentId(int contentId);
 	void updateHotPlaceReviewCountById(@Param("contentId") int contentId, @Param("updateValue") int updateValue);
 	List<HotPlaceDto> selectTopNPlace(int count);
+	PlaceReviewDto getReview(int review_id);
 }

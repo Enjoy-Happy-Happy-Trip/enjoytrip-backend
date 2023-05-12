@@ -11,17 +11,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.discovero.enjoytrip.attraction.model.AttractionDto;
 import com.discovero.enjoytrip.member.model.MembersDto;
 import com.discovero.enjoytrip.place.model.IPlaceService;
 import com.discovero.enjoytrip.place.model.PlaceReviewDto;
 
-@Controller
+@RestController
 @RequestMapping("place")
 public class PlaceController {
 	private static final Logger logger = LoggerFactory.getLogger(PlaceController.class);
@@ -32,7 +34,6 @@ public class PlaceController {
 	public PlaceController(IPlaceService placeService) {
 		this.placeService = placeService;
 	}
-	
 	
 	@PostMapping("/writereview")
 	@ResponseBody
@@ -68,6 +69,14 @@ public class PlaceController {
 		logger.debug("GET hotplace called");
 		List<AttractionDto> hotplaces = placeService.findTopPlace();
 		return hotplaces;
+	}
+	
+	@GetMapping("/detail/{review_id}")
+	@ResponseBody
+	public PlaceReviewDto review(@PathVariable String review_id) throws Exception {
+		logger.debug("GET review called");
+		PlaceReviewDto rv = placeService.getReview(Integer.parseInt(review_id));
+		return rv;
 	}
 	
 	/*

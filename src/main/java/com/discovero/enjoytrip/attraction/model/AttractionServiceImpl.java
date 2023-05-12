@@ -17,4 +17,9 @@ public class AttractionServiceImpl implements IAttractionService{
 	public List<AttractionDto> searchAttractionList(AttractionSearchDto asDto) {
 		return attractionMapper.selectAttractionsBySearchInfo(asDto);
 	}
+
+	@Override
+	public AttractionDto selectAttractionById(int content_id) {
+		return attractionMapper.selectAttractionById(content_id);
+	}
 }

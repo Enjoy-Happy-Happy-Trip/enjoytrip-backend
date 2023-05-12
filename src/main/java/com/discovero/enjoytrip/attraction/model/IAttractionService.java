@@ -5,5 +5,5 @@ import java.util.List;
 public interface IAttractionService {
 
 	List<AttractionDto> searchAttractionList(AttractionSearchDto asDto);
-
+	AttractionDto selectAttractionById(int content_id);
 }
