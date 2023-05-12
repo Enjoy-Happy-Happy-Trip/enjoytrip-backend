@@ -55,4 +55,11 @@ public class PlaceServiceImpl implements IPlaceService {
 				.map(hotplace -> attractionMapper.selectAttractionById(hotplace.getContent_id()))
 				.collect(Collectors.toList());
 	}
+
+	@Override
+	public PlaceReviewDto getReview(int review_id) {
+		PlaceReviewDto review = placeMapper.getReview(review_id);
+		review.setTitle(attractionMapper.selectAttractionById(review.getContent_id()).getTitle());
+		return review;
+	}
 }

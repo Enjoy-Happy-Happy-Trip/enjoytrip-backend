@@ -10,6 +10,11 @@
 		(#{user_id}, #{content_id}, #{user_review}, now())
 	</insert>
 	
+	<select id="getReview" parameterType="int" resultType="placeReviewDto">
+		select * from place_review
+		where review_id=#{review_id}
+	</select>
+	
 	<delete id="deleteReviewById" parameterType="int">
 		delete from place_review
 		where review_id=#{review_id}
