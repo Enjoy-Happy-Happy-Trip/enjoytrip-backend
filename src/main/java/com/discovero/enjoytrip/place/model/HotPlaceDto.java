@@ -1,5 +1,8 @@
 package com.discovero.enjoytrip.place.model;
 
+import io.swagger.annotations.ApiModel;
+
+@ApiModel(value = "HotPlaceDto : 핫플정보", description = "핫플의 상세 정보를 나타낸다.")
 public class HotPlaceDto {
 	private int content_id;
 	private int review_count;

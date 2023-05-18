@@ -4,7 +4,7 @@
 
 <mapper namespace="com.discovero.enjoytrip.member.model.MemberMapper">
 
-	<insert id="registry" parameterType="membersDto">
+	<insert id="register" parameterType="membersDto">
 		insert into members(user_id,user_name,user_password, email_id,email_domain,join_date,student_no, flag )
 		values (#{user_id}, #{user_name}, #{user_password}, #{email_id}, #{email_domain}, now(), #{student_no}, #{flag})
 	</insert>
@@ -16,6 +16,24 @@
 
 	<!-- TODO: findpassword 재구현 -->
 	
+	<update id="saveRefreshToken" parameterType="map">
+		update members
+		set token = #{token}
+		where user_id = #{user_id}
+	</update>
+	
+	<update id="deleteRefreshToken" parameterType="map">
+		update members
+		set token = #{token, jdbcType=VARCHAR}
+		where user_id = #{user_id}
+	</update>
+	
+	<select id="getRefreshToken" parameterType="string" resultType="string">
+		select token
+		from members
+		where user_id = #{user_id}
+	</select>
+	
 	<select id="memberlist" resultType="membersDto">
 		select user_id, user_name,user_password,email_id, email_domain, join_date, student_no
 		from members
@@ -23,7 +41,7 @@
 	</select>
 	
 	<select id="memberDetail" parameterType="String" resultType="membersDto">
-		select user_id, user_name, user_password, email_id, email_domain, join_date, student_no 
+		select user_id, user_name, email_id, email_domain, join_date, student_no 
 		from members
 		where user_id=#{user_id}
 	</select>

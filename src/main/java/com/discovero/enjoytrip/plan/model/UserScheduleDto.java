@@ -4,6 +4,9 @@ import java.util.List;
 
 import com.discovero.enjoytrip.attraction.model.AttractionDto;
 
+import io.swagger.annotations.ApiModel;
+
+@ApiModel(value = "UserScheduleDto : 사용자 스케줄 정보", description = "사용자 스케줄의 상세 정보를 나타낸다.")
 public class UserScheduleDto {
 	private int schedule_id;
 	private String user_id;

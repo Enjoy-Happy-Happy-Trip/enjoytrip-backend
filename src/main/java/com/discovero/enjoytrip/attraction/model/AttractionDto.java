@@ -1,5 +1,8 @@
 package com.discovero.enjoytrip.attraction.model;
 
+import io.swagger.annotations.ApiModel;
+
+@ApiModel(value = "AttractionDto : 장소 정보", description = "장소의 상세 정보를 나타낸다.")
 public class AttractionDto {
 	private int contentId;
 	private int contentTypeId;

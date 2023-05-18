@@ -1,5 +1,8 @@
 package com.discovero.enjoytrip.member.model;
 
+import io.swagger.annotations.ApiModel;
+
+@ApiModel(value = "MembersDto : 회원정보", description = "회원의 상세 정보를 나타낸다.")
 public class MembersDto {
 	private String user_id;
 	private String user_name;
@@ -54,7 +57,6 @@ public class MembersDto {
 		super();
 		this.user_id = user_id;
 		this.user_name = user_name;
-		this.user_password = user_password;
 		this.email_id = email_id;
 		this.email_domain = email_domain;
 		this.student_no = student_no;
