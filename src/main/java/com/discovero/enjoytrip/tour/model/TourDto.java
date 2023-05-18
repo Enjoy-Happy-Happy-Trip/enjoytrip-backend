@@ -2,7 +2,10 @@ package com.discovero.enjoytrip.tour.model;
 
 import java.math.BigDecimal;
 
+import io.swagger.annotations.ApiModel;
+
 // TODO: contentId, contentTypeId, desc 추가하기
+@ApiModel(value = "TourDto : 사용자 계획 정보", description = "사용자 계획의 상세 정보를 나타낸다.")
 public class TourDto {
 	private String imageUrl;
 	private String placeName;

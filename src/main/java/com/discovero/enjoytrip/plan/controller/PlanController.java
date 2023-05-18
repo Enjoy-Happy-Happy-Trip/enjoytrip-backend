@@ -17,8 +17,11 @@ import com.discovero.enjoytrip.member.model.MembersDto;
 import com.discovero.enjoytrip.plan.model.IPlanService;
 import com.discovero.enjoytrip.plan.model.UserScheduleDto;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping("/plan")
+@Api("여행계획 컨트롤러  API V1")
 public class PlanController {
 	private static final Logger logger = LoggerFactory.getLogger(PlanController.class);
 	

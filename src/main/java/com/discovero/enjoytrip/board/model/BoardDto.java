@@ -1,5 +1,8 @@
 package com.discovero.enjoytrip.board.model;
 
+import io.swagger.annotations.ApiModel;
+
+@ApiModel(value = "BoardDto : 게시글정보", description = "게시글의 상세 정보를 나타낸다.")
 public class BoardDto {
 	private int article_no;
 	private String user_id;

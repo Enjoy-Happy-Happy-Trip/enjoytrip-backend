@@ -1,7 +1,9 @@
 package com.discovero.enjoytrip.member.model;
 
 import java.security.MessageDigest;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -16,9 +18,9 @@ public class MemberServiceImpl implements IMemberService {
 	}
 
 	@Override
-	public boolean registry(MembersDto dto) {
+	public boolean register(MembersDto dto) {
 		dto.setUser_password(encryptData(dto.getUser_password()));
-		return memberMapper.registry(dto);
+		return memberMapper.register(dto);
 	}
 
 	@Override
@@ -69,5 +71,26 @@ public class MemberServiceImpl implements IMemberService {
         
         return sb.toString();
     }
+
+	@Override
+	public void saveRefreshToken(String user_id, String refreshToken) throws Exception {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("user_id", user_id);
+		map.put("token", refreshToken);
+		memberMapper.saveRefreshToken(map);		
+	}
+
+	@Override
+	public void deleRefreshToken(String user_id) throws Exception {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("user_id", user_id);
+		map.put("token", null);
+		memberMapper.deleteRefreshToken(map);		
+	}
+
+	@Override
+	public Object getRefreshToken(String user_id) throws Exception {
+		return memberMapper.getRefreshToken(user_id);
+	}
 
 }

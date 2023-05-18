@@ -18,8 +18,11 @@ import com.discovero.enjoytrip.tour.model.ITourService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping("/tour")
+@Api("사용자 계획 컨트롤러  API V1")
 public class TourController {
 	private static final Logger logger = LoggerFactory.getLogger(TourController.class);
 	

@@ -23,8 +23,11 @@ import com.discovero.enjoytrip.member.model.MembersDto;
 import com.discovero.enjoytrip.place.model.IPlaceService;
 import com.discovero.enjoytrip.place.model.PlaceReviewDto;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping("place")
+@Api("여행지 컨트롤러  API V1")
 public class PlaceController {
 	private static final Logger logger = LoggerFactory.getLogger(PlaceController.class);
 

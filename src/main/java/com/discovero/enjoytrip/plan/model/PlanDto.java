@@ -1,5 +1,8 @@
 package com.discovero.enjoytrip.plan.model;
 
+import io.swagger.annotations.ApiModel;
+
+@ApiModel(value = "PlanDto : 계획 정보", description = "계획의 상세 정보를 나타낸다.")
 public class PlanDto {
 	private String plan_id;
 	private String user_id;

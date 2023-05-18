@@ -33,8 +33,11 @@ import com.discovero.enjoytrip.board.model.IBoardService;
 import com.discovero.enjoytrip.member.model.MembersDto;
 import com.discovero.enjoytrip.util.PageNavigation;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping("/board")
+@Api("게시판 컨트롤러  API V1")
 public class BoardController {	
 	private final Logger logger = LoggerFactory.getLogger(BoardController.class);
 	
