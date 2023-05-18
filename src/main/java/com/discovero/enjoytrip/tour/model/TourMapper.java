@@ -14,4 +14,6 @@ public interface TourMapper {
 	int getContentId(String placeName);
 	void savePlanDetail(int content_id, int plan_id, int order);
 	void saveUserSchedule(Map<String, Object> map);
+	List<SidoGugunCodeDto> getSido();
+	List<SidoGugunCodeDto> getGugunInSido(String sido);
 }

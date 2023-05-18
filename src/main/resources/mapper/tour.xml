@@ -11,6 +11,19 @@
 		<result column="latitude" property="latitude"/>
 		<result column="longitude" property="longitude"/>
 	</resultMap>
+	
+	<select id="getSido" resultType="sidoGugunCodeDto">
+		select sido_code, sido_name
+		from sido
+		order by sido_code
+	</select>
+	
+	<select id="getGugunInSido" parameterType="string" resultType="sidoGugunCodeDto">
+		select gugun_code, gugun_name
+		from gugun
+		where sido_code = #{sido}
+		order by gugun_code
+	</select>
 
 	<insert id="savePlan" parameterType="String">
 		insert into plan(user_id, plan_title)

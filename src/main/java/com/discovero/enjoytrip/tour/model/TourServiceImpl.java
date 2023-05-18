@@ -55,4 +55,14 @@ public class TourServiceImpl implements ITourService {
 		tourMapper.saveUserSchedule(map);
 	}
 
+	@Override
+	public List<SidoGugunCodeDto> getSido() {
+		return tourMapper.getSido();
+	}
+
+	@Override
+	public List<SidoGugunCodeDto> getGugunInSido(String sido) {
+		return tourMapper.getGugunInSido(sido);
+	}
+
 }
