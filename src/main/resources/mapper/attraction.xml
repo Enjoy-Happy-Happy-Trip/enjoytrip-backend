@@ -26,6 +26,9 @@
 			<if test="contentTypeId != 0">
 				and content_type_id =#{contentTypeId}
 			</if>
+			<if test="gugunCode != 0">
+				and gugun_code =#{gugunCode}
+			</if>
 		</where>
 	</select>
 	
