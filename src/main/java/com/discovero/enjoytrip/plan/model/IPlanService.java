@@ -11,5 +11,7 @@ public interface IPlanService {
 	List<AttractionDto> getAttractionList(int plan_id);
 
 	UserScheduleDto getDetail(int schedule_id);
+
+	List<PlanDto> findAllPlans();
 	
 }

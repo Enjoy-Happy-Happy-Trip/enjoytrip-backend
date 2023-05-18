@@ -54,4 +54,9 @@ public class PlanServiceImpl implements IPlanService {
 		return attractions;
 	}
 
+	@Override
+	public List<PlanDto> findAllPlans() {
+		return planMapper.selectAllPlans();
+	}
+
 }

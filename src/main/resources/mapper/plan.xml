@@ -11,6 +11,13 @@
 		<result column="start_date" property="start_date"/>
 		<result column="end_date" property="end_date"/>
 	</resultMap>
+	
+	<resultMap type="PlanDto" id="planDto">
+		<result column="plan_id" property="plan_id"/>
+		<result column="user_id" property="user_id"/>
+		<result column="plan_title" property="plan_title"/>
+		<result column="plan_desc" property="plan_desc"/>
+	</resultMap>
 
 	<select id="getMyPlan" parameterType="String" resultMap="userSchedule">
 		select distinct u.schedule_id, u.user_id, p.plan_id, p.plan_title, u.start_date, u.end_date  
@@ -31,5 +38,9 @@
 	<select id="getPlanTitle" parameterType="int" resultType="String">
 		select plan_title from plan
 		where plan_id=#{plan_id}
+	</select>
+	
+	<select id="selectAllPlans" resultType="planDto">
+		select user_id, plan_id, plan_title from plan
 	</select>
 </mapper>
