@@ -59,6 +59,7 @@ public class PlanController {
 		return schedules;
 	}
 	
+
 	// plan_detail을 조회해서 plan_detail에 들어있는 content_id의 Attraction
 	@GetMapping("/detail/{plan_id}")
 	public ResponseEntity<List<AttractionDto>> detail(@PathVariable int plan_id) throws Exception {
