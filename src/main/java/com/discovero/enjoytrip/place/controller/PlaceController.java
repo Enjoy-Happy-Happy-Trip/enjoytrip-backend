@@ -40,10 +40,8 @@ public class PlaceController {
 	
 	@PostMapping("/writereview")
 	@ResponseBody
-	public ResponseEntity<String> write(HttpSession session, @RequestBody PlaceReviewDto prDto) {
+	public ResponseEntity<String> write(@RequestBody PlaceReviewDto prDto) {
 		logger.info("POST write called");
-		MembersDto login = (MembersDto) session.getAttribute("login");
-		prDto.setUser_id(login.getUser_id());
 		logger.info("received review : {}", prDto);
 		placeService.writeReview(prDto);
 		// TODO: review 게시판 구현시 변경하기
