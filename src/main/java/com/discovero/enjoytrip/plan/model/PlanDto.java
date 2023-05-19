@@ -4,16 +4,22 @@ import io.swagger.annotations.ApiModel;
 
 @ApiModel(value = "PlanDto : 계획 정보", description = "계획의 상세 정보를 나타낸다.")
 public class PlanDto {
-	private String plan_id;
+	private int plan_id;
 	private String user_id;
 	private String plan_title;
 	private String plan_desc;
+	private boolean isShared;
 	
 	public PlanDto() {
 		super();
 	}
+	
+	
+	public PlanDto(int plan_id, String plan_desc) {
+		super();
+	}
 
-	public PlanDto(String plan_id, String user_id, String plan_title, String plan_desc) {
+	public PlanDto(int plan_id, String user_id, String plan_title, String plan_desc) {
 		super();
 		this.plan_id = plan_id;
 		this.user_id = user_id;
@@ -21,11 +27,11 @@ public class PlanDto {
 		this.plan_desc = plan_desc;
 	}
 
-	public String getPlan_id() {
+	public int getPlan_id() {
 		return plan_id;
 	}
 
-	public void setPlan_id(String plan_id) {
+	public void setPlan_id(int plan_id) {
 		this.plan_id = plan_id;
 	}
 
@@ -53,9 +59,19 @@ public class PlanDto {
 		this.plan_desc = plan_desc;
 	}
 
+	public boolean isShared() {
+		return isShared;
+	}
+
+
+	public void setShared(boolean isShared) {
+		this.isShared = isShared;
+	}
+
+
 	@Override
 	public String toString() {
 		return "PlanDto [plan_id=" + plan_id + ", user_id=" + user_id + ", plan_title=" + plan_title + ", plan_desc="
-				+ plan_desc + "]";
+				+ plan_desc + ", isShared=" + isShared + "]";
 	}
 }
