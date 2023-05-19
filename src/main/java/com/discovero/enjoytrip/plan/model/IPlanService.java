@@ -8,8 +8,12 @@ public interface IPlanService {
 
 	List<UserScheduleDto> getMyPlan(String user_id);
 	
-	List<AttractionDto> getAttractionList(int plan_id);
+	List<AttractionDto> findAttractionsByPlanId(int plan_id);
 
 	UserScheduleDto getDetail(int schedule_id);
+
+	List<PlanDto> findAllPlans();
+
+	PlanDto findPlanById(int planId);
 	
 }

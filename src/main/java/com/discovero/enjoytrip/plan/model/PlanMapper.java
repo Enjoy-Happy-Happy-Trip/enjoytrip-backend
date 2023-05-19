@@ -12,4 +12,6 @@ public interface PlanMapper {
 	int[] getAttractionId(int plan_id);
 	UserScheduleDto getSchedule(int schedule_id);
 	String getPlanTitle(int plan_id);
+	List<PlanDto> selectAllPlans();
+	PlanDto selectPlanById(int planId);
 }
