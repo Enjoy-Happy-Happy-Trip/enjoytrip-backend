@@ -1,6 +1,7 @@
 package com.discovero.enjoytrip.plan.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.discovero.enjoytrip.attraction.model.AttractionDto;
 import com.discovero.enjoytrip.plan.model.IPlanService;
 import com.discovero.enjoytrip.plan.model.PlanDto;
 import com.discovero.enjoytrip.plan.model.UserScheduleDto;
@@ -50,6 +52,17 @@ public class PlanController {
 		return schedules;
 	}
 	
+	// plan_detail을 조회해서 plan_detail에 들어있는 content_id의 Attraction
+	@GetMapping("/detail/{plan_id}")
+	public ResponseEntity<List<AttractionDto>> detail(@PathVariable int plan_id) throws Exception {
+		logger.debug("GET detail called");
+		
+		// plan 리스트랑 각각의 사진
+		List<AttractionDto> planDetails = planService.findAttractionsByPlanId(plan_id);
+		
+		return new ResponseEntity<List<AttractionDto>>(planDetails, HttpStatus.OK);
+	}
+	
 	@GetMapping("/mydetail/{schedule_id}")
 	public UserScheduleDto detail(@PathVariable String schedule_id) throws Exception {
 		logger.debug("GET detail called");
@@ -61,6 +74,7 @@ public class PlanController {
 		return schedule;
 	}
 }
+
 
 
 

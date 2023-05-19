@@ -34,7 +34,7 @@ public class PlanServiceImpl implements IPlanService {
 	@Override
 	public UserScheduleDto getDetail(int schedule_id) {
 		UserScheduleDto udto = planMapper.getSchedule(schedule_id);
-		udto.setAttractions(getAttractionList(udto.getPlan_id()));
+		udto.setAttractions(findAttractionsByPlanId(udto.getPlan_id()));
 		
 		String plan_title = planMapper.getPlanTitle(udto.getPlan_id());
 		udto.setPlan_title(plan_title);
@@ -43,12 +43,12 @@ public class PlanServiceImpl implements IPlanService {
 	}
 
 	@Override
-	public List<AttractionDto> getAttractionList(int plan_id) {
-		int[] planIdList = planMapper.getAttractionId(plan_id);
+	public List<AttractionDto> findAttractionsByPlanId(int plan_id) {
+		int[] attractionIds = planMapper.getAttractionId(plan_id);
 		List<AttractionDto> attractions = new ArrayList<>();
 		
-		for (int i = 0; i < planIdList.length; i++) {
-			attractions.add(attractionMapper.selectAttractionById(planIdList[i]));
+		for (int id : attractionIds) {
+			attractions.add(attractionMapper.selectAttractionById(id));
 		}
 		
 		return attractions;
