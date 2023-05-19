@@ -13,5 +13,7 @@ public interface IPlanService {
 	UserScheduleDto getDetail(int schedule_id);
 
 	List<PlanDto> findAllPlans();
+
+	PlanDto findPlanById(int planId);
 	
 }

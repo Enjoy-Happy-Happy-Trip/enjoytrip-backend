@@ -43,4 +43,9 @@
 	<select id="selectAllPlans" resultType="planDto">
 		select user_id, plan_id, plan_title from plan
 	</select>
+	
+	<select id="selectPlanById" parameterType="int" resultType="planDto">
+		select * from plan
+		where plan_id=#{plan_id}
+	</select>
 </mapper>
