@@ -1,6 +1,8 @@
 package com.discovero.enjoytrip.tour.controller;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -33,14 +35,14 @@ import io.swagger.annotations.ApiParam;
 @Api("사용자 계획 컨트롤러  API V1")
 public class TourController {
 	private static final Logger logger = LoggerFactory.getLogger(TourController.class);
-	
+
 	private ITourService tourService;
-	
+
 	@Autowired
 	public TourController(ITourService tourService) {
 		this.tourService = tourService;
 	}
-	
+
 	@ApiOperation(value = "시도 정보", notes = "전국의 시도를 반환한다.", response = List.class)
 	@GetMapping("/sido")
 	public ResponseEntity<List<SidoGugunCodeDto>> sido() throws Exception {
@@ -55,27 +57,20 @@ public class TourController {
 		logger.info("gugun - 호출");
 		return new ResponseEntity<List<SidoGugunCodeDto>>(tourService.getGugunInSido(sido), HttpStatus.OK);
 	}
-	
+
 	@PostMapping("/saveplan")
 	public ResponseEntity<String> saveplan(@RequestBody UserPlanDto udto) {
-		String[] tmp = udto.getPlan();
+		logger.info("saveplan - 호출");
+		
+		String[] places = udto.getPlan();
+		int[] content_ids = udto.getContent_ids();
 		String user_id = udto.getUser_id();
-	    
-	    try {
-	        String plan_title = tmp[tmp.length-3];
-	        String start_date = tmp[tmp.length-2];
-	        String end_date = tmp[tmp.length-1];
-	        
-	        String[] placeNames = new String[tmp.length-3];
-	        
-	        for (int i = 0; i < tmp.length-3; i++) {
-				placeNames[i] = tmp[i];
-			}
-	        
-	        tourService.savePlan(placeNames, user_id, plan_title, start_date, end_date);
-	        return ResponseEntity.ok("Success");
-	    } catch (Exception e) {
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error converting JSON to data");
-	    }
+		String plan_title = udto.getPlanTitle();
+		String start_date = udto.getStartDate();
+		String end_date = udto.getEndDate();
+		
+		tourService.savePlan(places, content_ids, user_id, plan_title, start_date, end_date);
+		return ResponseEntity.ok("Success");
 	}
+	
 }
