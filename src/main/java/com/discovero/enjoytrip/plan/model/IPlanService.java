@@ -15,5 +15,7 @@ public interface IPlanService {
 	List<PlanDto> findAllPlans();
 
 	PlanDto findPlanById(int planId);
+
+	void modifyPlanDetail(PlanDto pdto);
 	
 }

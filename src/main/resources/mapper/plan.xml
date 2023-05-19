@@ -17,6 +17,7 @@
 		<result column="user_id" property="user_id"/>
 		<result column="plan_title" property="plan_title"/>
 		<result column="plan_desc" property="plan_desc"/>
+		<result column="shared" property="isShared"/>
 	</resultMap>
 
 	<select id="getMyPlan" parameterType="String" resultMap="userSchedule">
@@ -42,10 +43,16 @@
 	
 	<select id="selectAllPlans" resultType="planDto">
 		select user_id, plan_id, plan_title from plan
+		where shared=true;
 	</select>
 	
 	<select id="selectPlanById" parameterType="int" resultType="planDto">
 		select * from plan
 		where plan_id=#{plan_id}
 	</select>
+	
+	<update id="updatePlanDesc" parameterType="planDto">
+		update plan_detail set plan_desc=#{plan_desc}
+		where plan_id=#{plan_id}
+	</update>
 </mapper>

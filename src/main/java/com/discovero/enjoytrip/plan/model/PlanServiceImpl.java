@@ -64,4 +64,9 @@ public class PlanServiceImpl implements IPlanService {
 		return planMapper.selectPlanById(planId);
 	}
 
+	@Override
+	public void modifyPlanDetail(PlanDto pdto) {
+		planMapper.updatePlanDesc(pdto);
+	}
+
 }

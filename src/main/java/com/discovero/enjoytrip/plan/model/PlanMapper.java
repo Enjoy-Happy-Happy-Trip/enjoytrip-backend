@@ -14,4 +14,5 @@ public interface PlanMapper {
 	String getPlanTitle(int plan_id);
 	List<PlanDto> selectAllPlans();
 	PlanDto selectPlanById(int planId);
+	void updatePlanDesc(PlanDto pdto);
 }
