@@ -44,7 +44,7 @@ public class PlanController {
 		return schedules;
 	}
 	
-	@GetMapping("/detail/{schedule_id}")
+	@GetMapping("/mydetail/{schedule_id}")
 	@ResponseBody
 	public UserScheduleDto detail(@PathVariable String schedule_id) throws Exception {
 		logger.debug("GET detail called");

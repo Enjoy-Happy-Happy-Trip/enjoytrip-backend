@@ -22,6 +22,7 @@ import com.discovero.enjoytrip.tour.model.ITourService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.discovero.enjoytrip.tour.model.SidoGugunCodeDto;
+import com.discovero.enjoytrip.tour.model.UserPlanDto;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -56,13 +57,11 @@ public class TourController {
 	}
 	
 	@PostMapping("/saveplan")
-	public ResponseEntity<String> saveplan(@RequestBody String json, HttpSession session) {
-	    ObjectMapper mapper = new ObjectMapper();
-	    MembersDto mdto = (MembersDto) session.getAttribute("login");
-	    String user_id = mdto.getUser_id();
+	public ResponseEntity<String> saveplan(@RequestBody UserPlanDto udto) {
+		String[] tmp = udto.getPlan();
+		String user_id = udto.getUser_id();
 	    
 	    try {
-	        String[] tmp = mapper.readValue(json, String[].class);
 	        String plan_title = tmp[tmp.length-3];
 	        String start_date = tmp[tmp.length-2];
 	        String end_date = tmp[tmp.length-1];
@@ -75,7 +74,7 @@ public class TourController {
 	        
 	        tourService.savePlan(placeNames, user_id, plan_title, start_date, end_date);
 	        return ResponseEntity.ok("Success");
-	    } catch (JsonProcessingException e) {
+	    } catch (Exception e) {
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error converting JSON to data");
 	    }
 	}
