@@ -34,10 +34,17 @@ public class PlanController {
 	}
 	
 	@GetMapping("")
-	public ResponseEntity<List<PlanDto>> plan() throws Exception {
-		logger.info("GET plan called");
+	public ResponseEntity<List<PlanDto>> planList() throws Exception {
+		logger.info("GET planList called");
 		List<PlanDto> plans = planService.findAllPlans();
 		return new ResponseEntity<List<PlanDto>>(plans, HttpStatus.OK);
+	}
+	
+	@GetMapping("/{plan_id}")
+	public ResponseEntity<PlanDto> plan(@PathVariable int plan_id) throws Exception {
+		logger.info("GET plan called");
+		PlanDto plan = planService.findPlanById(plan_id);
+		return new ResponseEntity<PlanDto>(plan, HttpStatus.OK);
 	}
 	
 	@GetMapping("/getmyplan/{user_id}")
@@ -65,7 +72,7 @@ public class PlanController {
 	
 	@GetMapping("/mydetail/{schedule_id}")
 	public UserScheduleDto detail(@PathVariable String schedule_id) throws Exception {
-		logger.debug("GET detail called");
+		logger.debug("GET mydetail called");
 		
 		int id = Integer.parseInt(schedule_id);
 		

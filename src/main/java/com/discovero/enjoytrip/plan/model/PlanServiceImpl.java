@@ -59,4 +59,9 @@ public class PlanServiceImpl implements IPlanService {
 		return planMapper.selectAllPlans();
 	}
 
+	@Override
+	public PlanDto findPlanById(int planId) {
+		return planMapper.selectPlanById(planId);
+	}
+
 }
