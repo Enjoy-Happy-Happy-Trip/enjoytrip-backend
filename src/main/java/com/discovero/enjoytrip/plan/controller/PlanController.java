@@ -31,7 +31,7 @@ public class PlanController {
 		this.planService = planService;
 	}
 	
-	@GetMapping("/")
+	@GetMapping("")
 	public ResponseEntity<List<PlanDto>> plan() throws Exception {
 		logger.info("GET plan called");
 		List<PlanDto> plans = planService.findAllPlans();
@@ -50,7 +50,7 @@ public class PlanController {
 		return schedules;
 	}
 	
-	@GetMapping("/detail/{schedule_id}")
+	@GetMapping("/mydetail/{schedule_id}")
 	public UserScheduleDto detail(@PathVariable String schedule_id) throws Exception {
 		logger.debug("GET detail called");
 		
