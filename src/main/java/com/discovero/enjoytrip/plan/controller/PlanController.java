@@ -49,10 +49,9 @@ public class PlanController {
 		return new ResponseEntity<PlanDto>(plan, HttpStatus.OK);
 	}
 	
-	@PutMapping("/plan/{plan_id}")
-	public ResponseEntity<Void> planDetailModify(@PathVariable int planId, @RequestBody String planDesc) throws Exception {
-		logger.info("PUT planDetailModify called, planDesc : {}", planDesc);
-		PlanDto pdto = new PlanDto(planId, planDesc);
+	@PutMapping("/{plan_id}")
+	public ResponseEntity<Void> planDetailModify(@PathVariable int plan_id, @RequestBody PlanDto pdto) throws Exception {
+		logger.info("PUT planDetailModify called, planDesc : {}", pdto);
 		planService.modifyPlanDetail(pdto);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
