@@ -33,8 +33,8 @@ public class TourServiceImpl implements ITourService {
 
 	@Override
 	@Transactional
-	public void savePlan(String[] placeNames, int[] content_ids, String user_id, String plan_title, String start_date, String end_date) {
-		tourMapper.savePlan(user_id, plan_title);
+	public void savePlan(String[] placeNames, int[] content_ids, String user_id, String schedule_title, String start_date, String end_date) {
+		tourMapper.savePlan();
 		
 		int order = 1;
 		int plan_id = tourMapper.getLastInsertId();
@@ -46,6 +46,7 @@ public class TourServiceImpl implements ITourService {
 		Map<String, Object> map = new HashMap<>();
 		map.put("user_id", user_id);
 		map.put("plan_id", plan_id);
+		map.put("schedule_title", schedule_title);
 		map.put("start_date", start_date);
 		map.put("end_date", end_date);
 		

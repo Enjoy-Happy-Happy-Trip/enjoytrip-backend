@@ -35,10 +35,6 @@ public class PlanServiceImpl implements IPlanService {
 	public UserScheduleDto getDetail(int schedule_id) {
 		UserScheduleDto udto = planMapper.getSchedule(schedule_id);
 		udto.setAttractions(findAttractionsByPlanId(udto.getPlan_id()));
-		
-		String plan_title = planMapper.getPlanTitle(udto.getPlan_id());
-		udto.setPlan_title(plan_title);
-		
 		return udto;
 	}
 

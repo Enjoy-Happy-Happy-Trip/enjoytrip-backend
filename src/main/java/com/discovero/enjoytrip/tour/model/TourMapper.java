@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface TourMapper {
 	List<TourDto> tourlist(Map<String, Object> map);
 	TourDto tourDetail(int article_no);
-	void savePlan(String user_id, String plan_title); 
+	void savePlan(); 
 	int getLastInsertId();
 	int getContentId(String placeName);
 	void savePlanDetail(int content_id, int plan_id, int order);
