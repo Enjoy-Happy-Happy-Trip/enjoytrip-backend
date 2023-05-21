@@ -51,8 +51,8 @@
 		where plan_id=#{plan_id}
 	</select>
 	
-	<update id="updatePlanDesc" parameterType="planDto">
-		update plan_detail set plan_desc=#{plan_desc}
+	<update id="updatePlan" parameterType="planDto">
+		update plan set user_id=#{user_id}, plan_title=#{plan_title}, plan_desc=#{plan_desc}, shared=true
 		where plan_id=#{plan_id}
 	</update>
 </mapper>

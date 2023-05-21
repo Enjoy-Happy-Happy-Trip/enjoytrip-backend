@@ -62,7 +62,7 @@ public class PlanServiceImpl implements IPlanService {
 
 	@Override
 	public void modifyPlanDetail(PlanDto pdto) {
-		planMapper.updatePlanDesc(pdto);
+		planMapper.updatePlan(pdto);
 	}
 
 }
