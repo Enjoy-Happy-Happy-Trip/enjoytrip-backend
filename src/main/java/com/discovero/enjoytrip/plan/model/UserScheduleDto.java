@@ -11,7 +11,7 @@ public class UserScheduleDto {
 	private int schedule_id;
 	private String user_id;
 	private int plan_id;
-	private String plan_title;
+	private String schedule_title;
 	private String start_date;
 	private String end_date;
 	private List<AttractionDto> attractions;
@@ -20,12 +20,12 @@ public class UserScheduleDto {
 		super();
 	}
 
-	public UserScheduleDto(int schedule_id, String user_id, int plan_id, String plan_title, String start_date, String end_date) {
+	public UserScheduleDto(int schedule_id, String user_id, int plan_id, String schedule_title, String start_date, String end_date) {
 		super();
 		this.schedule_id = schedule_id;
 		this.user_id = user_id;
 		this.plan_id = plan_id;
-		this.plan_title = plan_title;
+		this.schedule_title = schedule_title;
 		this.start_date = start_date;
 		this.end_date = end_date;
 	}
@@ -63,12 +63,12 @@ public class UserScheduleDto {
 		this.plan_id = plan_id;
 	}
 
-	public String getPlan_title() {
-		return plan_title;
+	public String getSchedule_title() {
+		return schedule_title;
 	}
 
-	public void setPlan_title(String plan_title) {
-		this.plan_title = plan_title;
+	public void setSchedule_title(String schedule_title) {
+		this.schedule_title = schedule_title;
 	}
 
 	public String getStart_date() {

@@ -7,7 +7,7 @@
 		<result column="schedule_id" property="schedule_id"/>
 		<result column="user_id" property="user_id"/>
 		<result column="plan_id" property="plan_id"/>
-		<result column="plan_title" property="plan_title"/>
+		<result column="schedule_title" property="schedule_title"/>
 		<result column="start_date" property="start_date"/>
 		<result column="end_date" property="end_date"/>
 	</resultMap>
@@ -21,9 +21,9 @@
 	</resultMap>
 
 	<select id="getMyPlan" parameterType="String" resultMap="userSchedule">
-		select distinct u.schedule_id, u.user_id, p.plan_id, p.plan_title, u.start_date, u.end_date  
-		from plan p join user_schedule u on p.plan_id = u.plan_id
-		where u.user_id=#{user_id}
+		select schedule_id, user_id, plan_id, schedule_title, start_date, end_date  
+		from user_schedule
+		where user_id=#{user_id}
 	</select>
 	
 	<select id="getAttractionId" parameterType="int" resultType="int">
