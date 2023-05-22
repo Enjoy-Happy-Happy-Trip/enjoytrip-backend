@@ -8,13 +8,34 @@ public class AttractionSearchDto {
 	private int gugunCode;
 	private int contentTypeId;
 	private String keyword;
+	private int pageNo;
+	private int offset; // 검색하려는 page의 이전 정보들 개수
+	private int itemCount; // 한 페이지 당 개수
 
-	public AttractionSearchDto(int sidoCode, int gugunCode, int contentTypeId, String keyword) {
+	public AttractionSearchDto() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public AttractionSearchDto(int sidoCode, int gugunCode, int contentTypeId, String keyword, int pageNo) {
 		super();
 		this.sidoCode = sidoCode;
 		this.gugunCode = gugunCode;
 		this.contentTypeId = contentTypeId;
 		this.keyword = keyword;
+		this.pageNo = pageNo;
+	}
+
+	public AttractionSearchDto(int sidoCode, int gugunCode, int contentTypeId, String keyword, int pageNo, int offset,
+			int itemCount) {
+		super();
+		this.sidoCode = sidoCode;
+		this.gugunCode = gugunCode;
+		this.contentTypeId = contentTypeId;
+		this.keyword = keyword;
+		this.pageNo = pageNo;
+		this.offset = offset;
+		this.itemCount = itemCount;
 	}
 
 	public int getGugunCode() {
@@ -49,10 +70,36 @@ public class AttractionSearchDto {
 		this.keyword = keyword;
 	}
 
+	public int getPageNo() {
+		return pageNo;
+	}
+
+	public void setPageNo(int pageNo) {
+		this.pageNo = pageNo;
+	}
+
+	public int getOffset() {
+		return offset;
+	}
+
+	public void setOffset(int offset) {
+		this.offset = offset;
+	}
+
+	public int getItemCount() {
+		return itemCount;
+	}
+
+	public void setItemCount(int itemCount) {
+		this.itemCount = itemCount;
+	}
+
 	@Override
 	public String toString() {
 		return "AttractionSearchDto [sidoCode=" + sidoCode + ", gugunCode=" + gugunCode + ", contentTypeId="
-				+ contentTypeId + ", keyword=" + keyword + "]";
+				+ contentTypeId + ", keyword=" + keyword + ", pageNo=" + pageNo + ", offset=" + offset + ", itemCount="
+				+ itemCount + "]";
 	}
+	
 	
 }

@@ -8,4 +8,5 @@ import org.apache.ibatis.annotations.Mapper;
 public interface AttractionMapper {
 	List<AttractionDto> selectAttractionsBySearchInfo(AttractionSearchDto asDto);
 	AttractionDto selectAttractionById(int contentId);
+	int selectCountBySearchInfo(AttractionSearchDto asDto);
 }

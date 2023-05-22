@@ -30,11 +30,25 @@
 				and gugun_code =#{gugunCode}
 			</if>
 		</where>
+		limit #{offset}, #{itemCount}
 	</select>
 	
 	<select id="selectAttractionById" parameterType="int" resultMap="attraction">
 		select content_id, content_type_id, title, addr1, tel, first_image,
 		readcount, latitude, longitude from attraction_info
 		where content_id = #{contentId}
+	</select>
+	
+	<select id="selectCountBySearchInfo" resultType="int">
+		select count(*) from attraction_info
+		<where>
+			sido_code = #{sidoCode} and title like concat('%', #{keyword}, '%')
+			<if test="contentTypeId != 0">
+				and content_type_id =#{contentTypeId}
+			</if>
+			<if test="gugunCode != 0">
+				and gugun_code =#{gugunCode}
+			</if>
+		</where>
 	</select>
 </mapper>
