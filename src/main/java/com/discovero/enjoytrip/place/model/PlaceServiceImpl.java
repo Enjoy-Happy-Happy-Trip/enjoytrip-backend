@@ -58,8 +58,13 @@ public class PlaceServiceImpl implements IPlaceService {
 	@Override
 	public List<AttractionDto> findTopPlace() {
 		List<HotPlaceDto> hotList = placeMapper.selectTopNPlace(HOT_PLACE_CNT);
+		
 		return hotList.stream()
-				.map(hotplace -> attractionMapper.selectAttractionById(hotplace.getContent_id()))
+				.map(hotplace -> {
+					AttractionDto adto = attractionMapper.selectAttractionById(hotplace.getContent_id());
+					adto.setReview_count(hotplace.getReview_count());
+					return adto;
+				})
 				.collect(Collectors.toList());
 	}
 

@@ -13,7 +13,16 @@ public class AttractionDto {
 	private int readCount;
 	private double latitude;
 	private double longitude;
+	private int review_count;
 	
+	public int getReview_count() {
+		return review_count;
+	}
+
+	public void setReview_count(int review_count) {
+		this.review_count = review_count;
+	}
+
 	public AttractionDto(int contentId, int contentTypeId, String title, String addr, String tel, String firstImage,
 			int readCount, double latitude, double longitude) {
 		super();
@@ -102,6 +111,9 @@ public class AttractionDto {
 
 	@Override
 	public String toString() {
-		return "AttractionDto [contentId=" + contentId + ", contentTypeId=" + contentTypeId + ", title=" + title + "]";
+		return "AttractionDto [contentId=" + contentId + ", contentTypeId=" + contentTypeId + ", title=" + title
+				+ ", addr=" + addr + ", tel=" + tel + ", firstImage=" + firstImage + ", readCount=" + readCount
+				+ ", latitude=" + latitude + ", longitude=" + longitude + ", review_count=" + review_count + "]";
 	}
+
 }
