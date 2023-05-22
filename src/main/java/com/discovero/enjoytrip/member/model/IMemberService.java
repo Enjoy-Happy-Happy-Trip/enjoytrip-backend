@@ -3,7 +3,7 @@ package com.discovero.enjoytrip.member.model;
 import java.util.List;
 
 public interface IMemberService {
-	boolean register(MembersDto dto);
+	boolean register(MembersDto dto) throws Exception;
 
 	MembersDto login(MembersDto dto);
 	
