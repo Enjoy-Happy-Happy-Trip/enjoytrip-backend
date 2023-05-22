@@ -6,7 +6,7 @@ import com.discovero.enjoytrip.attraction.model.AttractionDto;
 
 public interface IPlanService {
 
-	List<UserScheduleDto> getMyPlan(String user_id);
+	List<UserScheduleDto> getMyPlan(String user_id, boolean isShared);
 	
 	List<AttractionDto> findAttractionsByPlanId(int plan_id);
 

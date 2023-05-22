@@ -21,8 +21,8 @@ public class PlanServiceImpl implements IPlanService {
 	}
 
 	@Override
-	public List<UserScheduleDto> getMyPlan(String user_id) {
-		List<UserScheduleDto> mySchedules = planMapper.getMyPlan(user_id);
+	public List<UserScheduleDto> getMyPlan(String user_id, boolean isShared) {
+		List<UserScheduleDto> mySchedules = planMapper.getMyPlan(user_id, isShared);
 		
 		for (int i = 0; i < mySchedules.size(); i++) {
 			System.out.println(mySchedules.get(i).toString());
