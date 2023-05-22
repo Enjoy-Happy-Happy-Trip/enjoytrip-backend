@@ -5,11 +5,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.discovero.enjoytrip.util.model.EmailDto;
+import com.discovero.enjoytrip.util.model.EmailServiceImpl;
+import com.discovero.enjoytrip.util.model.IEmailService;
 
 @Service
 public class MemberServiceImpl implements IMemberService {
 
+	private IEmailService emailService = new EmailServiceImpl();
 	private MemberMapper memberMapper;
 
 	public MemberServiceImpl(MemberMapper memberMapper) {
@@ -91,6 +97,23 @@ public class MemberServiceImpl implements IMemberService {
 	@Override
 	public Object getRefreshToken(String user_id) throws Exception {
 		return memberMapper.getRefreshToken(user_id);
+	}
+
+	@Override
+	public String resetPwd(MembersDto mdto) {
+		// 1. 입력된 정보에 해당하는 user가 있는지 확인
+		MembersDto targetUser = memberMapper.selectMemberByIdAndEmail(mdto);
+		if (targetUser == null) {
+			return "fail";
+		}
+		
+		// 2. 입력된 정보에 해당하는 user가 있다면
+		// 2-1. 인증코드를 메일로 보내고
+		// 2-2. 인증코드를 프론트에게로도 보낸다.
+		String authCode = "123456"; // TODO : 랜덤 설정으로 바꾸기
+		EmailDto edto = new EmailDto(mdto.getEmail(), "[EnjoyTrip] 인증코드", authCode);
+		emailService.sendEmail(edto);
+		return authCode;
 	}
 
 }
