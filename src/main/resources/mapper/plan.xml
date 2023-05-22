@@ -25,7 +25,17 @@
 		u.user_id, u.plan_id, u.schedule_title, u.start_date, u.end_date
 		from user_schedule u
 		left join plan p on u.plan_id = p.plan_id
-		where u.user_id = #{user_id} and p.shared = #{isShared};
+		where u.user_id = #{user_id} and p.shared = #{isShared}
+	</select>
+	
+	<select id="getPastPlan" resultMap="userSchedule" parameterType="String">
+		select * from user_schedule
+		where user_id = #{user_id} and end_date &lt; date_sub(now(), interval 1 day)
+	</select>
+
+	<select id="getFuturePlan" resultMap="userSchedule" parameterType="String">
+		select * from user_schedule
+		where user_id = #{user_id} and end_date &gt; date_add(now(), interval 1 day)
 	</select>
 
 	<select id="getAttractionId" parameterType="int"
@@ -49,7 +59,7 @@
 	<select id="selectAllPlans" resultType="planDto">
 		select user_id, plan_id,
 		plan_title from plan
-		where shared=true;
+		where shared=true
 	</select>
 
 	<select id="selectPlanById" parameterType="int"

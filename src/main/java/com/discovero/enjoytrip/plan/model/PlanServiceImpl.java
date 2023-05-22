@@ -10,10 +10,10 @@ import com.discovero.enjoytrip.attraction.model.AttractionMapper;
 
 @Service
 public class PlanServiceImpl implements IPlanService {
-	
+
 	private PlanMapper planMapper;
 	private AttractionMapper attractionMapper;
-	
+
 	public PlanServiceImpl(PlanMapper planMapper, AttractionMapper attractionMapper) {
 		super();
 		this.planMapper = planMapper;
@@ -22,13 +22,7 @@ public class PlanServiceImpl implements IPlanService {
 
 	@Override
 	public List<UserScheduleDto> getMyPlan(String user_id, boolean isShared) {
-		List<UserScheduleDto> mySchedules = planMapper.getMyPlan(user_id, isShared);
-		
-		for (int i = 0; i < mySchedules.size(); i++) {
-			System.out.println(mySchedules.get(i).toString());
-		}
-		
-		return mySchedules;
+		return planMapper.getMyPlan(user_id, isShared);
 	}
 
 	@Override
@@ -42,11 +36,11 @@ public class PlanServiceImpl implements IPlanService {
 	public List<AttractionDto> findAttractionsByPlanId(int plan_id) {
 		int[] attractionIds = planMapper.getAttractionId(plan_id);
 		List<AttractionDto> attractions = new ArrayList<>();
-		
+
 		for (int id : attractionIds) {
 			attractions.add(attractionMapper.selectAttractionById(id));
 		}
-		
+
 		return attractions;
 	}
 
@@ -63,6 +57,16 @@ public class PlanServiceImpl implements IPlanService {
 	@Override
 	public void modifyPlanDetail(PlanDto pdto) {
 		planMapper.updatePlan(pdto);
+	}
+
+	@Override
+	public List<UserScheduleDto> getPastPlan(String user_id) {
+		return planMapper.getPastPlan(user_id);
+	}
+
+	@Override
+	public List<UserScheduleDto> getFuturePlan(String user_id) {
+		return planMapper.getFuturePlan(user_id);
 	}
 
 }

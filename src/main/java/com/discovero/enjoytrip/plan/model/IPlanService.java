@@ -17,5 +17,9 @@ public interface IPlanService {
 	PlanDto findPlanById(int planId);
 
 	void modifyPlanDetail(PlanDto pdto);
+
+	List<UserScheduleDto> getPastPlan(String user_id);
+
+	List<UserScheduleDto> getFuturePlan(String user_id);
 	
 }

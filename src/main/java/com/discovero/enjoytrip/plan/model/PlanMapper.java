@@ -15,4 +15,6 @@ public interface PlanMapper {
 	List<PlanDto> selectAllPlans();
 	PlanDto selectPlanById(int planId);
 	void updatePlan(PlanDto pdto);
+	List<UserScheduleDto> getPastPlan(String user_id);
+	List<UserScheduleDto> getFuturePlan(String user_id);
 }
