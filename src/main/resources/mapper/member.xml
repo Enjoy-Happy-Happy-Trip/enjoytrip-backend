@@ -5,8 +5,8 @@
 <mapper namespace="com.discovero.enjoytrip.member.model.MemberMapper">
 
 	<insert id="register" parameterType="membersDto">
-		insert into members(user_id,user_name,user_password, email_id,email_domain,join_date,student_no, flag )
-		values (#{user_id}, #{user_name}, #{user_password}, #{email_id}, #{email_domain}, now(), #{student_no}, #{flag})
+		insert into members(user_id,user_name,user_password, email_id,email_domain,join_date, flag )
+		values (#{user_id}, #{user_name}, #{user_password}, #{email_id}, #{email_domain}, now(), #{flag})
 	</insert>
 	
 	<select id="login" parameterType="membersDto" resultType="membersDto">
