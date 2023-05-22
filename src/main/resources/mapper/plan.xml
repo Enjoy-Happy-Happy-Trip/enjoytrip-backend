@@ -4,55 +4,64 @@
 
 <mapper namespace="com.discovero.enjoytrip.plan.model.PlanMapper">
 	<resultMap type="UserScheduleDto" id="userSchedule">
-		<result column="schedule_id" property="schedule_id"/>
-		<result column="user_id" property="user_id"/>
-		<result column="plan_id" property="plan_id"/>
-		<result column="schedule_title" property="schedule_title"/>
-		<result column="start_date" property="start_date"/>
-		<result column="end_date" property="end_date"/>
-	</resultMap>
-	
-	<resultMap type="PlanDto" id="planDto">
-		<result column="plan_id" property="plan_id"/>
-		<result column="user_id" property="user_id"/>
-		<result column="plan_title" property="plan_title"/>
-		<result column="plan_desc" property="plan_desc"/>
-		<result column="shared" property="isShared"/>
+		<result column="schedule_id" property="schedule_id" />
+		<result column="user_id" property="user_id" />
+		<result column="plan_id" property="plan_id" />
+		<result column="schedule_title" property="schedule_title" />
+		<result column="start_date" property="start_date" />
+		<result column="end_date" property="end_date" />
 	</resultMap>
 
-	<select id="getMyPlan" parameterType="String" resultMap="userSchedule">
-		select schedule_id, user_id, plan_id, schedule_title, start_date, end_date  
-		from user_schedule
-		where user_id=#{user_id}
+	<resultMap type="PlanDto" id="planDto">
+		<result column="plan_id" property="plan_id" />
+		<result column="user_id" property="user_id" />
+		<result column="plan_title" property="plan_title" />
+		<result column="plan_desc" property="plan_desc" />
+		<result column="shared" property="isShared" />
+	</resultMap>
+
+	<select id="getMyPlan" resultMap="userSchedule">
+		select u.schedule_id,
+		u.user_id, u.plan_id, u.schedule_title, u.start_date, u.end_date
+		from user_schedule u
+		left join plan p on u.plan_id = p.plan_id
+		where u.user_id = #{user_id} and p.shared = #{isShared};
 	</select>
-	
-	<select id="getAttractionId" parameterType="int" resultType="int">
+
+	<select id="getAttractionId" parameterType="int"
+		resultType="int">
 		select content_id from plan_detail
 		where plan_id=#{plan_id}
 	</select>
-	
-	<select id="getSchedule" parameterType="int" resultMap="userSchedule">
+
+	<select id="getSchedule" parameterType="int"
+		resultMap="userSchedule">
 		select * from user_schedule
 		where schedule_id=#{schedule}
 	</select>
-	
-	<select id="getPlanTitle" parameterType="int" resultType="String">
+
+	<select id="getPlanTitle" parameterType="int"
+		resultType="String">
 		select plan_title from plan
 		where plan_id=#{plan_id}
 	</select>
-	
+
 	<select id="selectAllPlans" resultType="planDto">
-		select user_id, plan_id, plan_title from plan
+		select user_id, plan_id,
+		plan_title from plan
 		where shared=true;
 	</select>
-	
-	<select id="selectPlanById" parameterType="int" resultType="planDto">
+
+	<select id="selectPlanById" parameterType="int"
+		resultType="planDto">
 		select * from plan
 		where plan_id=#{plan_id}
 	</select>
-	
+
 	<update id="updatePlan" parameterType="planDto">
-		update plan set user_id=#{user_id}, plan_title=#{plan_title}, plan_desc=#{plan_desc}, shared=true
+		update plan set
+		user_id=#{user_id}, plan_title=#{plan_title}, plan_desc=#{plan_desc},
+		shared=true
 		where plan_id=#{plan_id}
 	</update>
 </mapper>

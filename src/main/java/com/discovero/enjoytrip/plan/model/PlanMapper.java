@@ -8,7 +8,7 @@ import com.discovero.enjoytrip.attraction.model.AttractionDto;
 
 @Mapper
 public interface PlanMapper {
-	List<UserScheduleDto> getMyPlan(String user_id);
+	List<UserScheduleDto> getMyPlan(String user_id, boolean isShared);
 	int[] getAttractionId(int plan_id);
 	UserScheduleDto getSchedule(int schedule_id);
 	String getPlanTitle(int plan_id);

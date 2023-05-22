@@ -57,9 +57,9 @@ public class PlanController {
 	}
 	
 	@GetMapping("/getmyplan/{user_id}")
-	public List<UserScheduleDto> getmyplan(@PathVariable String user_id, @RequestParam(value = "onlyShared", defaultValue="false") boolean isOnlyShared) throws Exception {
-		logger.info("GET getmyplan called, isShared -> {}", isOnlyShared);
-		List<UserScheduleDto> schedules = planService.getMyPlan(user_id);
+	public List<UserScheduleDto> getmyplan(@PathVariable String user_id, @RequestParam(value = "unshared", defaultValue="true") boolean shared) throws Exception {
+		logger.info("GET getmyplan called, isShared -> {}", !shared);
+		List<UserScheduleDto> schedules = planService.getMyPlan(user_id, !shared);
 		return schedules;
 	}
 	
