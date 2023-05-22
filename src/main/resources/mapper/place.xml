@@ -45,7 +45,7 @@
 		where content_id=#{content_id}
 	</update>
 	
-	<select id="selectTopNPlace">
+	<select id="selectTopNPlace" resultType="HotPlaceDto">
 		select * from hotplace
 		order by review_count desc
 		limit #{count}
