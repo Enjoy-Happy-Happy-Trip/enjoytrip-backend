@@ -235,6 +235,13 @@ public class MemberController {
 		}
 		return loginInfo;
 	}
+	
+	@PostMapping("/findPwd")
+	public ResponseEntity<Void> findPwd(@RequestBody MembersDto mdto) throws Exception {
+		logger.debug("GET findPwd called findForm : {}", mdto);
+		memberService.findpassword(mdto);
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
 }
 
 
