@@ -1,11 +1,14 @@
 package com.discovero.enjoytrip.attraction.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.discovero.enjoytrip.attraction.model.AttractionDto;
 import com.discovero.enjoytrip.attraction.model.AttractionSearchDto;
 import com.discovero.enjoytrip.attraction.model.IAttractionService;
+import com.discovero.enjoytrip.util.PageNavigation;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -33,13 +37,21 @@ public class AttractionController {
 	
 	// 관광지 검색시 조건에 맞는 관광지 List를 반환합니다.
 	@ApiOperation(value = "장소 리스트 불러오기", notes = "모든 장소를 불러온다", response = String.class)
-	@GetMapping("/attractionlist")
+	@GetMapping("")
 	@ResponseBody
-	public List<AttractionDto> attractionlist(AttractionSearchDto asDto) throws Exception {
+	public ResponseEntity<Map<String, Object>> attractionlist(AttractionSearchDto asDto) throws Exception {
 		logger.info("GET attractionlist called, asDto : {}", asDto);
 		List<AttractionDto> list = attractionService.searchAttractionList(asDto);
-		logger.info("GET attractionlist return list : {}", list);
-		return list;
+		PageNavigation pageNav = attractionService.findPageNavInfo(asDto);
+		
+		Map<String, Object> responseData = new HashMap<>();
+		responseData.put("attractionList", list);
+		responseData.put("pageNav", pageNav);
+		
+		logger.debug("list : {}", list);
+		logger.debug("pageNav : {}", pageNav);
+		
+		return new ResponseEntity<Map<String,Object>>(responseData, HttpStatus.OK);
 	}
 	
 	@ApiOperation(value = "장소 불러오기", notes = "content_id를 기반으로 특정 장소를 불러온다.", response = String.class)
