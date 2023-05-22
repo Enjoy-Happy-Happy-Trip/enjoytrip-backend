@@ -153,9 +153,10 @@ public class MemberController {
 	
 	// 회원가입페이지에서 가입 버튼을 누르면 회원 가입
 	@PostMapping("/register")
-	public void register(MembersDto mdto) throws Exception {
-		logger.debug("POST registryaf called");
+	public ResponseEntity<Void> register(MembersDto mdto) throws Exception {
+		logger.debug("POST registry called");
 		memberService.register(mdto);
+		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
 	// 로그인 버튼을 누르면 로그인을 시도합니다.

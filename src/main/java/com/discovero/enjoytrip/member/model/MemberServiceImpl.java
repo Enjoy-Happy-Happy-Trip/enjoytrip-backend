@@ -18,7 +18,7 @@ public class MemberServiceImpl implements IMemberService {
 	}
 
 	@Override
-	public boolean register(MembersDto dto) {
+	public boolean register(MembersDto dto) throws Exception{
 		dto.setUser_password(encryptData(dto.getUser_password()));
 		return memberMapper.register(dto);
 	}

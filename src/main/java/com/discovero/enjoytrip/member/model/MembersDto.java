@@ -10,7 +10,6 @@ public class MembersDto {
 	private String email_id;
 	private String email_domain;
 	private String join_date;
-	private String student_no;
 	private int flag;
 
 	public MembersDto() {
@@ -18,7 +17,7 @@ public class MembersDto {
 	}
 
 	public MembersDto(String user_id, String user_name, String user_password, String email_id, String email_domain,
-			String join_date, String student_no, int flag) {
+			String join_date, int flag) {
 		super();
 		this.user_id = user_id;
 		this.user_name = user_name;
@@ -26,12 +25,11 @@ public class MembersDto {
 		this.email_id = email_id;
 		this.email_domain = email_domain;
 		this.join_date = join_date;
-		this.student_no = student_no;
 		this.flag = flag;
 	}
 	
 	public MembersDto(String user_id, String user_name, String user_password, String email_id, String email_domain,
-			String join_date, String student_no) {
+			String join_date) {
 		super();
 		this.user_id = user_id;
 		this.user_name = user_name;
@@ -39,34 +37,22 @@ public class MembersDto {
 		this.email_id = email_id;
 		this.email_domain = email_domain;
 		this.join_date = join_date;
-		this.student_no = student_no;
 	}
 
-	public MembersDto(String user_id, String user_name, String user_password, String email_id, String email_domain, String student_no, int flag) {
+	public MembersDto(String user_id, String user_name, String user_password, String email_id, String email_domain, int flag) {
 		super();
 		this.user_id = user_id;
 		this.user_name = user_name;
 		this.user_password = user_password;
 		this.email_id = email_id;
 		this.email_domain = email_domain;
-		this.student_no = student_no;
 		this.flag = flag;
-	}
-	
-	public MembersDto(String user_id, String user_name, String user_password, String email_id, String email_domain, String student_no) {
-		super();
-		this.user_id = user_id;
-		this.user_name = user_name;
-		this.email_id = email_id;
-		this.email_domain = email_domain;
-		this.student_no = student_no;
 	}
 	
 	public MembersDto(String user_id, String user_name, String user_password, String email_id, String email_domain) {
 		super();
 		this.user_id = user_id;
 		this.user_name = user_name;
-		this.user_password = user_password;
 		this.email_id = email_id;
 		this.email_domain = email_domain;
 	}
@@ -129,14 +115,6 @@ public class MembersDto {
 
 	public void setJoin_date(String join_date) {
 		this.join_date = join_date;
-	}
-
-	public String getStudent_no() {
-		return student_no;
-	}
-
-	public void setStudent_no(String student_no) {
-		this.student_no = student_no;
 	}
 
 	public int getFlag() {
