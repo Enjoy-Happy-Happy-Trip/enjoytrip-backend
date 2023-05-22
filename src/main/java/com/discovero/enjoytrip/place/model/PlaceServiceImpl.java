@@ -26,7 +26,14 @@ public class PlaceServiceImpl implements IPlaceService {
 	@Override
 	public void writeReview(PlaceReviewDto prDto) {
 		placeMapper.insertReview(prDto);
-		placeMapper.updateHotPlaceReviewCountById(prDto.getReview_id(), INCREASE);
+		
+		if(placeMapper.getHotPlace(prDto.getContent_id()) > 0) {			
+			placeMapper.updateHotPlaceReviewCountById(prDto.getContent_id(), INCREASE);
+			return;
+		}
+		
+		placeMapper.insertHotPlace(prDto.getContent_id());
+		placeMapper.updateHotPlaceReviewCountById(prDto.getContent_id(), INCREASE);
 	}
 
 	@Override

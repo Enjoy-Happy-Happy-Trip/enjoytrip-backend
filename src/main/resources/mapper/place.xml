@@ -15,6 +15,16 @@
 		where review_id=#{review_id}
 	</select>
 	
+	<select id="getHotPlace" parameterType="int" resultType="int">
+		select count(*) from hotplace
+		where content_id = #{content_id};
+	</select>
+	
+	<insert id="insertHotPlace" parameterType="int">
+		insert into hotplace (content_id, review_count)
+		values (#{content_id}, 0)
+	</insert>
+	
 	<delete id="deleteReviewById" parameterType="int">
 		delete from place_review
 		where review_id=#{review_id}
@@ -32,7 +42,7 @@
 	<!-- @Param 으로 contentId(int), updateValue(int) 를 받음  -->
 	<update id="updateHotPlaceReviewCountById">
 		update hotplace set review_count=review_count + #{updateValue}
-		where content_id=#{contentId}
+		where content_id=#{content_id}
 	</update>
 	
 	<select id="selectTopNPlace">
