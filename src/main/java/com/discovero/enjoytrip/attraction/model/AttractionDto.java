@@ -14,13 +14,42 @@ public class AttractionDto {
 	private double latitude;
 	private double longitude;
 	private int review_count;
+	private String overview;
 	
+	public String getOverview() {
+		return overview;
+	}
+
+	public void setOverview(String overview) {
+		this.overview = overview;
+	}
+
 	public int getReview_count() {
 		return review_count;
 	}
 
 	public void setReview_count(int review_count) {
 		this.review_count = review_count;
+	}
+	
+	public AttractionDto() {
+		super();
+	}
+
+	public AttractionDto(int contentId, int contentTypeId, String title, String addr, String tel, String firstImage,
+			int readCount, double latitude, double longitude, int review_count, String overview) {
+		super();
+		this.contentId = contentId;
+		this.contentTypeId = contentTypeId;
+		this.title = title;
+		this.addr = addr;
+		this.tel = tel;
+		this.firstImage = firstImage;
+		this.readCount = readCount;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.review_count = review_count;
+		this.overview = overview;
 	}
 
 	public AttractionDto(int contentId, int contentTypeId, String title, String addr, String tel, String firstImage,
