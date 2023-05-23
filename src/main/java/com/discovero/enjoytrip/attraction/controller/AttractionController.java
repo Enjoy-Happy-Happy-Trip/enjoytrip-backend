@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -57,7 +58,7 @@ public class AttractionController {
 	@ApiOperation(value = "장소 불러오기", notes = "content_id를 기반으로 특정 장소를 불러온다.", response = String.class)
 	@GetMapping("/{content_id}")
 	@ResponseBody
-	public AttractionDto attraction(String content_id) {
+	public AttractionDto attraction(@PathVariable String content_id) {
 		logger.info("GET attraction called, content_id : {}", content_id);
 		AttractionDto attr = attractionService.selectAttractionById(Integer.parseInt(content_id));
 		logger.info("GET attraction return attraction : {}", attr);

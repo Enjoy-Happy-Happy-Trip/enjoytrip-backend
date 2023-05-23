@@ -32,13 +32,15 @@
 		</where>
 		limit #{offset}, #{itemCount}
 	</select>
-	
-	<select id="selectAttractionById" parameterType="int" resultMap="attraction">
-		select content_id, content_type_id, title, addr1, tel, first_image,
-		readcount, latitude, longitude from attraction_info
-		where content_id = #{contentId}
+
+	<select id="selectAttractionById" parameterType="int"
+		resultMap="attraction">
+		select i.content_id, i.content_type_id, i.title, i.addr1,
+		i.tel, i.first_image, i.readcount, i.latitude, i.longitude, d.overview
+		from attraction_description d, attraction_info i
+		where i.content_id = #{contentId} and i.content_id = d.content_id;
 	</select>
-	
+
 	<select id="selectCountBySearchInfo" resultType="int">
 		select count(*) from attraction_info
 		<where>
