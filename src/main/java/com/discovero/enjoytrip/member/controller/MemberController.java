@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.discovero.enjoytrip.member.model.IMemberService;
 import com.discovero.enjoytrip.member.model.JwtServiceImpl;
 import com.discovero.enjoytrip.member.model.MembersDto;
+import com.discovero.enjoytrip.member.model.ResetPwdInfoDto;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -237,14 +238,11 @@ public class MemberController {
 	}
 	
 	@PostMapping("/resetPwd")
-	public ResponseEntity<String> resetPwd(@RequestBody MembersDto mdto) throws Exception {
+	public ResponseEntity<ResetPwdInfoDto> resetPwd(@RequestBody MembersDto mdto) throws Exception {
 		logger.debug("GET resetPwd called findForm : {}", mdto);
-		String authCode = memberService.resetPwd(mdto);
-		if (authCode.equals("fail")) {
-			return new ResponseEntity<String>("FAIL", HttpStatus.OK);
-		} else {
-			return new ResponseEntity<String>(authCode, HttpStatus.OK);
-		}
+		ResetPwdInfoDto resetPwdInfo = memberService.resetPwd(mdto);
+		
+		return new ResponseEntity<ResetPwdInfoDto>(resetPwdInfo, HttpStatus.OK);
 		
 	}
 }
