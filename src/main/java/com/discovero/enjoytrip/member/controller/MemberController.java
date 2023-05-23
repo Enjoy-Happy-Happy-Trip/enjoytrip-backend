@@ -146,7 +146,7 @@ public class MemberController {
 				status = HttpStatus.ACCEPTED;
 			}
 		} else {
-			logger.debug("리프레쉬토큰도 사용불!!!!!!!");
+			logger.debug("리프레쉬토큰도 사용불가!!!!!!!");
 			status = HttpStatus.UNAUTHORIZED;
 		}
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
