@@ -57,10 +57,16 @@ public class MemberServiceImpl implements IMemberService {
 	}
 
 	@Override
-	public boolean memberUpdate(MembersDto dto) {
+	public boolean modifyMember(MembersDto dto) {
 		return memberMapper.memberUpdate(dto);
 	}
 	
+	@Override
+	public void modifyPasswordById(MembersDto mdto) {
+		mdto.setUser_password(encryptData(mdto.getUser_password()));
+		memberMapper.updatePasswordById(mdto);
+	}
+
 	public String encryptData(String str) {
         StringBuilder sb = new StringBuilder();
         try{
