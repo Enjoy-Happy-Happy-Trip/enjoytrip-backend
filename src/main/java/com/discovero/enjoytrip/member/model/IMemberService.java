@@ -15,7 +15,9 @@ public interface IMemberService {
 
 	boolean memberDelete(String user_id);
 
-	boolean memberUpdate(MembersDto dto);
+	boolean modifyMember(MembersDto dto);
+	
+	void modifyPasswordById(MembersDto mdto);
 
 	void saveRefreshToken(String user_id, String refreshToken) throws Exception;
 	

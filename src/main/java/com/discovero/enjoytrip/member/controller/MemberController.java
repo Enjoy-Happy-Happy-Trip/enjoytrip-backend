@@ -213,10 +213,10 @@ public class MemberController {
 	
 	// TODO: REST api로 구성하기 위해서는 url상에서 Go는 없애야 함.
 	// 관리자가 회원 정보를 수정합니다.
-	@PutMapping("updateGo")
-	public String update(MembersDto mdto) throws Exception {
-		memberService.memberUpdate(mdto);
-		return "redirect:/member/memberlist";
+	@PutMapping("/{user_id}")
+	public ResponseEntity<Void> update(@RequestBody MembersDto mdto) throws Exception {
+		memberService.modifyPasswordById(mdto);
+		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
 	// login여부를 front에게 알려줍니다. (1 : login 되어있음, 2 : admin, 0 : login 안되어 있음)

@@ -61,4 +61,9 @@
 		where user_id=#{user_id} and email_id=#{email_id} and email_domain=#{email_domain}
 	</select>
 	
+	<update id="updatePasswordById" parameterType="membersDto">
+		update members set user_password=#{user_password}
+		where user_id=#{user_id}
+	</update>
+	
 </mapper>
