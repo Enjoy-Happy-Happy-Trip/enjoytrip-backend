@@ -15,12 +15,13 @@ import com.discovero.enjoytrip.util.model.IEmailService;
 @Service
 public class MemberServiceImpl implements IMemberService {
 
-	private IEmailService emailService = new EmailServiceImpl();
+	private IEmailService emailService;
 	private MemberMapper memberMapper;
 
-	public MemberServiceImpl(MemberMapper memberMapper) {
+	public MemberServiceImpl(MemberMapper memberMapper, IEmailService emailService) {
 		super();
 		this.memberMapper = memberMapper;
+		this.emailService =emailService;
 	}
 
 	@Override
