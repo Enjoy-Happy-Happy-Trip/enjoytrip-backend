@@ -29,13 +29,14 @@
 	</select>
 	
 	<select id="getPastPlan" resultMap="userSchedule" parameterType="String">
-		select * from user_schedule
-		where user_id = #{user_id} and end_date &lt; date_sub(now(), interval 1 day)
+		select * from user_schedule u left join plan p
+		on u.plan_id = p.plan_id
+		where u.user_id = #{user_id} and end_date &lt; date_sub(now(), interval 1 day) and not p.shared
 	</select>
 
 	<select id="getFuturePlan" resultMap="userSchedule" parameterType="String">
 		select * from user_schedule
-		where user_id = #{user_id} and end_date &gt; date_add(now(), interval 1 day)
+		where user_id = #{user_id} and end_date &gt; now()
 	</select>
 
 	<select id="getAttractionId" parameterType="int"
@@ -74,4 +75,19 @@
 		shared=true
 		where plan_id=#{plan_id}
 	</update>
+	
+	<delete id="deletePlanDetail" parameterType="int">
+		delete from plan_detail
+		where plan_id = #{plan_id}
+	</delete>
+	
+	<delete id="deletePlan" parameterType="int">
+		delete from plan
+		where plan_id = #{plan_id}
+	</delete>
+	
+	<delete id="deleteUserSchedule" parameterType="int">
+		delete from user_schedule
+		where plan_id = #{plan_id}
+	</delete>
 </mapper>

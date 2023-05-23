@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.discovero.enjoytrip.attraction.model.AttractionDto;
 import com.discovero.enjoytrip.attraction.model.AttractionMapper;
@@ -67,6 +68,14 @@ public class PlanServiceImpl implements IPlanService {
 	@Override
 	public List<UserScheduleDto> getFuturePlan(String user_id) {
 		return planMapper.getFuturePlan(user_id);
+	}
+
+	@Override
+	@Transactional
+	public void deleteUserSchedule(int plan_id) {
+		planMapper.deleteUserSchedule(plan_id);
+		planMapper.deletePlanDetail(plan_id);
+		planMapper.deletePlan(plan_id);
 	}
 
 }
