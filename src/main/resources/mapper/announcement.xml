@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.discovero.enjoytrip.announcement.model.AnnouncementMapper">
+
+	<resultMap type="announcementDto" id="announcement">
+		<result column="article_no" property="article_no"/>
+		<result column="user_id" property="user_id"/>
+		<result column="subject" property="subject"/>
+		<result column="content" property="content"/>
+		<result column="hit" property="hit"/>
+		<result column="register_time" property="register_time"/>
+	</resultMap>
+	
+	<select id="selectAnnouncements" resultMap="announcement">
+		select article_no, user_id, subject, hit, register_time from announcement
+		order by article_no
+	</select>
+	
+	<select id="selectAnnouncementById" parameterType="int" resultMap="announcement">
+		select * from announcement
+		where article_no=#{article_no}
+	</select>
+	
+	<update id="updateHitByAddingOneById" parameterType="int">
+		update announcement set hit=hit+1
+		where article_no=#{article_no}
+	</update>
+	
+	<insert id="insertAnnouncement" parameterType="announcementDto">
+		insert into announcement (user_id, subject, content, hit, register_time)
+		values (#{user_id}, #{subject}, #{content}, 0, now())
+	</insert>
+	
+	<update id="updateAnnouncementById" parameterType="announcementDto">
+		update announcement set subject=#{subject}, content=#{content}
+		where article_no=#{article_no}
+	</update>
+	
+	<delete id="deleteAnnouncementById" parameterType="int">
+		delete from announcement 
+		where article_no=#{article_no}
+	</delete>
+
+</mapper>
