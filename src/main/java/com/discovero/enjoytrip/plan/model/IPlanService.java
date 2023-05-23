@@ -21,5 +21,7 @@ public interface IPlanService {
 	List<UserScheduleDto> getPastPlan(String user_id);
 
 	List<UserScheduleDto> getFuturePlan(String user_id);
+
+	void deleteUserSchedule(int plan_id);
 	
 }

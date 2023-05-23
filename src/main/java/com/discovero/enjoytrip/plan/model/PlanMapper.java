@@ -17,4 +17,7 @@ public interface PlanMapper {
 	void updatePlan(PlanDto pdto);
 	List<UserScheduleDto> getPastPlan(String user_id);
 	List<UserScheduleDto> getFuturePlan(String user_id);
+	void deletePlanDetail(int plan_id);
+	void deletePlan(int plan_id);
+	void deleteUserSchedule(int plan_id);
 }
