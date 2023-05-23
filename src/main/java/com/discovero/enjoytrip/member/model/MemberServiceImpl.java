@@ -107,11 +107,11 @@ public class MemberServiceImpl implements IMemberService {
 	}
 
 	@Override
-	public String resetPwd(MembersDto mdto) {
+	public ResetPwdInfoDto resetPwd(MembersDto mdto) {
 		// 1. 입력된 정보에 해당하는 user가 있는지 확인
 		MembersDto targetUser = memberMapper.selectMemberByIdAndEmail(mdto);
 		if (targetUser == null) {
-			return "fail";
+			return new ResetPwdInfoDto("FAIL");
 		}
 		
 		// 2. 입력된 정보에 해당하는 user가 있다면
@@ -120,7 +120,7 @@ public class MemberServiceImpl implements IMemberService {
 		String authCode = "123456"; // TODO : 랜덤 설정으로 바꾸기
 		EmailDto edto = new EmailDto(mdto.getEmail(), "[EnjoyTrip] 인증코드", authCode);
 		emailService.sendEmail(edto);
-		return authCode;
+		return new ResetPwdInfoDto(targetUser.getUser_id(), authCode);
 	}
 
 }
