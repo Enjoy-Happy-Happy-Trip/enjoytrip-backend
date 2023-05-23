@@ -108,6 +108,10 @@ public class MembersDto {
 	public void setEmail_domain(String email_domain) {
 		this.email_domain = email_domain;
 	}
+	
+	public String getEmail() {
+		return email_id+"@"+email_domain;
+	}
 
 	public String getJoin_date() {
 		return join_date;

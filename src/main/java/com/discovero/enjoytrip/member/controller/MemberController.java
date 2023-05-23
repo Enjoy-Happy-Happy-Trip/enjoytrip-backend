@@ -236,11 +236,16 @@ public class MemberController {
 		return loginInfo;
 	}
 	
-	@PostMapping("/findPwd")
-	public ResponseEntity<Void> findPwd(@RequestBody MembersDto mdto) throws Exception {
-		logger.debug("GET findPwd called findForm : {}", mdto);
-		memberService.findpassword(mdto);
-		return new ResponseEntity<Void>(HttpStatus.OK);
+	@PostMapping("/resetPwd")
+	public ResponseEntity<String> resetPwd(@RequestBody MembersDto mdto) throws Exception {
+		logger.debug("GET resetPwd called findForm : {}", mdto);
+		String authCode = memberService.resetPwd(mdto);
+		if (authCode.equals("fail")) {
+			return new ResponseEntity<String>("FAIL", HttpStatus.OK);
+		} else {
+			return new ResponseEntity<String>(authCode, HttpStatus.OK);
+		}
+		
 	}
 }
 

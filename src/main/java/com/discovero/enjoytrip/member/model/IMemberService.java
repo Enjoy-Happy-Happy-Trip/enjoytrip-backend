@@ -23,4 +23,6 @@ public interface IMemberService {
 	
 	Object getRefreshToken(String user_id) throws Exception;
 
+	String resetPwd(MembersDto mdto);
+
 }

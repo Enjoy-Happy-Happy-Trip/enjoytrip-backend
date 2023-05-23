@@ -56,4 +56,9 @@
 		where user_id=#{user_id}
 	</update>
 	
+	<select id="selectMemberByIdAndEmail" parameterType="membersDto" resultType="membersDto">
+		select * from members
+		where user_id=#{user_id} and email_id=#{email_id} and email_domain=#{email_domain}
+	</select>
+	
 </mapper>

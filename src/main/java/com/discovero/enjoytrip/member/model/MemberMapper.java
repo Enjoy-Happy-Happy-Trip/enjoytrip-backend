@@ -30,4 +30,6 @@ public interface MemberMapper {
 	
 	Object getRefreshToken(String user_id) throws SQLException;
 
+	MembersDto selectMemberByIdAndEmail(MembersDto mdto);
+
 }
