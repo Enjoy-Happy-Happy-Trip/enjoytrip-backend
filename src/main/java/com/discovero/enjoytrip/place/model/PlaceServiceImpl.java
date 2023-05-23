@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.discovero.enjoytrip.attraction.model.AttractionDto;
 import com.discovero.enjoytrip.attraction.model.AttractionMapper;
@@ -24,6 +25,7 @@ public class PlaceServiceImpl implements IPlaceService {
 	}
 
 	@Override
+	@Transactional
 	public void writeReview(PlaceReviewDto prDto) {
 		placeMapper.insertReview(prDto);
 		
@@ -37,9 +39,11 @@ public class PlaceServiceImpl implements IPlaceService {
 	}
 
 	@Override
-	public void deleteReviewById(int reviewId) {
+	@Transactional
+	public void deleteReviewById(int reviewId, int content_id) {
 		placeMapper.deleteReviewById(reviewId);
-		placeMapper.updateHotPlaceReviewCountById(reviewId, DECREASE);
+		placeMapper.updateHotPlaceReviewCountById(content_id, DECREASE);
+		placeMapper.deleteZeroCountHotplace();
 	}
 
 	@Override

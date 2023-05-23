@@ -51,4 +51,8 @@
 		limit #{count}
 	</select>
 	
+	<delete id="deleteZeroCountHotplace">
+		delete from hotplace where review_count = 0
+	</delete>
+	
 </mapper>

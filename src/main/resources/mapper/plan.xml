@@ -36,7 +36,7 @@
 
 	<select id="getFuturePlan" resultMap="userSchedule" parameterType="String">
 		select * from user_schedule
-		where user_id = #{user_id} and end_date &gt; now()
+		where user_id = #{user_id} and end_date &gt; date_sub(now(), interval 1 day)
 	</select>
 
 	<select id="getAttractionId" parameterType="int"

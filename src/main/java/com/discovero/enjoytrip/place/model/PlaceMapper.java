@@ -16,4 +16,5 @@ public interface PlaceMapper {
 	PlaceReviewDto getReview(int review_id);
 	void insertHotPlace(int content_id);
 	int getHotPlace(int content_id);
+	void deleteZeroCountHotplace();
 }
