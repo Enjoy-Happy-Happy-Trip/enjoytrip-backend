@@ -9,7 +9,7 @@ public interface IMemberService {
 	
 	String findpassword(String student_no);
 
-	List<MembersDto> memberlist();
+	List<MembersDto> findAllMembers();
 
 	MembersDto memberDetail(String user_id);
 

@@ -34,10 +34,10 @@
 		where user_id = #{user_id}
 	</select>
 	
-	<select id="memberlist" resultType="membersDto">
+	<select id="selectMembers" resultType="membersDto">
 		select user_id, user_name,user_password,email_id, email_domain, join_date
 		from members
-		where flag=0 order by user_id
+		order by user_id
 	</select>
 	
 	<select id="memberDetail" parameterType="String" resultType="membersDto">

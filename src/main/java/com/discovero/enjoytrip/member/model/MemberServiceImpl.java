@@ -43,8 +43,8 @@ public class MemberServiceImpl implements IMemberService {
 	}
 
 	@Override
-	public List<MembersDto> memberlist() {
-		return memberMapper.memberlist();
+	public List<MembersDto> findAllMembers() {
+		return memberMapper.selectMembers();
 	}
 
 	@Override
