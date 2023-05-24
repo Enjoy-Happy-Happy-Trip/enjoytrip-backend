@@ -33,7 +33,8 @@ public class TourServiceImpl implements ITourService {
 
 	@Override
 	@Transactional
-	public void savePlan(String[] placeNames, int[] content_ids, String user_id, String schedule_title, String start_date, String end_date) {
+	public void savePlan(String[] placeNames, int[] content_ids, String user_id, 
+			String schedule_title, String start_date, String end_date) {
 		tourMapper.savePlan();
 		
 		int order = 1;

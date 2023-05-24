@@ -25,5 +25,7 @@ public interface IPlanService {
 	void deleteUserSchedule(int plan_id);
 
 	void deleteSharedPlan(int plan_id);
+
+	void modifySchedule(UserScheduleDto udto, boolean hasPlanModified);
 	
 }

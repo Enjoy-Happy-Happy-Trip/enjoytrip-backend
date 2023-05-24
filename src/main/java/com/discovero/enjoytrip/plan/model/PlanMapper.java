@@ -21,4 +21,5 @@ public interface PlanMapper {
 	void deletePlan(int plan_id);
 	void deleteUserSchedule(int plan_id);
 	void deleteSharedPlan(int plan_id);
+	void updateScheduleById(UserScheduleDto udto);
 }
