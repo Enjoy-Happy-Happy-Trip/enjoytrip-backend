@@ -15,7 +15,16 @@ public class UserScheduleDto {
 	private String start_date;
 	private String end_date;
 	private List<AttractionDto> attractions;
+	private int shared;
 	
+	public int getShared() {
+		return shared;
+	}
+
+	public void setShared(int shared) {
+		this.shared = shared;
+	}
+
 	public UserScheduleDto() {
 		super();
 	}
