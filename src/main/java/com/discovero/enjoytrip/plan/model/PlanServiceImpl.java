@@ -1,24 +1,31 @@
 package com.discovero.enjoytrip.plan.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.discovero.enjoytrip.attraction.model.AttractionDto;
 import com.discovero.enjoytrip.attraction.model.AttractionMapper;
+import com.discovero.enjoytrip.tour.model.TourMapper;
 
 @Service
 public class PlanServiceImpl implements IPlanService {
+	private static final int NOT_MODIFIED = -1;
 
 	private PlanMapper planMapper;
 	private AttractionMapper attractionMapper;
+	private TourMapper tourMapper;
 
-	public PlanServiceImpl(PlanMapper planMapper, AttractionMapper attractionMapper) {
+	public PlanServiceImpl(PlanMapper planMapper, 
+			AttractionMapper attractionMapper, TourMapper tourMapper) {
 		super();
 		this.planMapper = planMapper;
 		this.attractionMapper = attractionMapper;
+		this.tourMapper = tourMapper;
 	}
 
 	@Override
@@ -83,5 +90,23 @@ public class PlanServiceImpl implements IPlanService {
 		planMapper.deleteSharedPlan(plan_id);
 	}
 
-
+	@Override
+	@Transactional
+	public void modifySchedule(UserScheduleDto udto, boolean hasPlanModified) {
+		udto.setPlan_id(NOT_MODIFIED);
+		if (hasPlanModified) {
+			tourMapper.savePlan();
+			
+			int order = 1;
+			int plan_id = tourMapper.getLastInsertId();
+			udto.setPlan_id(plan_id);
+			
+			for (AttractionDto adto : udto.getAttractions()) {
+				tourMapper.savePlanDetail(adto.getContentId(), plan_id, order++);
+			}
+		}
+		
+		planMapper.updateScheduleById(udto);
+		
+	}
 }

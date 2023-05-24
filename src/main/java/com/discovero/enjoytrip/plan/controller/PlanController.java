@@ -113,6 +113,16 @@ public class PlanController {
 		
 		planService.deleteSharedPlan(plan_id);
 	}
+	
+	@PutMapping("/myplan/{scheduleId}")
+	public ResponseEntity<Void> scheduleModify(
+			@RequestBody UserScheduleDto udto,
+			@RequestParam(value="planmodified", defaultValue = "true") boolean hasPlanModified) {
+		logger.debug("PUT scheduleModify called, Schedule : {}", udto);
+		logger.debug("plan modified : {}", hasPlanModified);
+		planService.modifySchedule(udto, hasPlanModified);
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
 }
 
 

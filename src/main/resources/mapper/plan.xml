@@ -96,4 +96,15 @@
 		delete from user_schedule
 		where plan_id = #{plan_id}
 	</delete>
+	
+	<update id="updateScheduleById" parameterType="userScheduleDto">
+		update user_schedule 
+		<set>
+			<if test="plan_id != -1">
+				plan_id=#{plan_id}, 
+			</if>
+			schedule_title=#{schedule_title}, start_date=#{start_date}, end_date=#{end_date}
+		</set>
+		where schedule_id=#{schedule_id}
+	</update>
 </mapper>
