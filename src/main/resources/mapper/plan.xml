@@ -10,6 +10,7 @@
 		<result column="schedule_title" property="schedule_title" />
 		<result column="start_date" property="start_date" />
 		<result column="end_date" property="end_date" />
+		<result column="shared" property="shared" />
 	</resultMap>
 
 	<resultMap type="PlanDto" id="planDto">
@@ -25,13 +26,14 @@
 		u.user_id, u.plan_id, u.schedule_title, u.start_date, u.end_date
 		from user_schedule u
 		left join plan p on u.plan_id = p.plan_id
-		where u.user_id = #{user_id} and p.shared = #{isShared}
+		where u.end_date &lt; date_sub(now(), interval 1 day) and u.user_id = #{user_id} and p.shared = #{isShared}
 	</select>
 	
 	<select id="getPastPlan" resultMap="userSchedule" parameterType="String">
 		select * from user_schedule u left join plan p
 		on u.plan_id = p.plan_id
-		where u.user_id = #{user_id} and end_date &lt; date_sub(now(), interval 1 day) and not p.shared
+		where u.user_id = #{user_id} and end_date &lt; date_sub(now(), interval 1 day)
+		order by p.shared, end_date desc
 	</select>
 
 	<select id="getFuturePlan" resultMap="userSchedule" parameterType="String">
