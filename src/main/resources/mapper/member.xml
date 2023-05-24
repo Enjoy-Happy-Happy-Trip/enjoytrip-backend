@@ -46,8 +46,7 @@
 		where user_id=#{user_id}
 	</select>
 	
-	<delete id="memberDelete" parameterType="String">
-		delete from board where user_id=#{user_id}
+	<delete id="deleteMemeberById" parameterType="String">
 		delete from members where user_id=#{user_id}
 	</delete>
 	

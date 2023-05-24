@@ -5,11 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.discovero.enjoytrip.place.model.PlaceMapper;
 import com.discovero.enjoytrip.util.model.EmailDto;
-import com.discovero.enjoytrip.util.model.EmailServiceImpl;
 import com.discovero.enjoytrip.util.model.IEmailService;
 
 @Service
@@ -17,15 +16,17 @@ public class MemberServiceImpl implements IMemberService {
 
 	private IEmailService emailService;
 	private MemberMapper memberMapper;
+	private PlaceMapper placeMapper;
 
-	public MemberServiceImpl(MemberMapper memberMapper, IEmailService emailService) {
+	public MemberServiceImpl(MemberMapper memberMapper, IEmailService emailService, PlaceMapper placeMapper) {
 		super();
 		this.memberMapper = memberMapper;
-		this.emailService =emailService;
+		this.emailService = emailService;
+		this.placeMapper = placeMapper;
 	}
 
 	@Override
-	public boolean register(MembersDto dto) throws Exception{
+	public boolean register(MembersDto dto) throws Exception {
 		dto.setUser_password(encryptData(dto.getUser_password()));
 		return memberMapper.register(dto);
 	}
@@ -52,15 +53,25 @@ public class MemberServiceImpl implements IMemberService {
 	}
 
 	@Override
-	public boolean memberDelete(String user_id) {
-		return memberMapper.memberDelete(user_id);
+	public void removeMemberById(String user_id) {
+		// 1. user가 쓴 Review의 ContentId 리스트를 조회한다.
+		List<Integer> contentIdsOfReviewByUser = placeMapper.selectContentIdsByUserId(user_id);
+
+		// 2. ContentId 마다 review count를 1씩 감소시킨다.
+		contentIdsOfReviewByUser.stream()
+				.forEach((contentId) -> placeMapper.updateHotPlaceReviewCountById(contentId, -1));
+
+		// 3. user가 공유한 plan의 shared 를 false로 바꾼다.
+		placeMapper.updateSharedToFalseByUserId(user_id);
+
+		memberMapper.deleteMemeberById(user_id);
 	}
 
 	@Override
 	public boolean modifyMember(MembersDto dto) {
 		return memberMapper.memberUpdate(dto);
 	}
-	
+
 	@Override
 	public void modifyPasswordById(MembersDto mdto) {
 		mdto.setUser_password(encryptData(mdto.getUser_password()));
@@ -68,29 +79,29 @@ public class MemberServiceImpl implements IMemberService {
 	}
 
 	public String encryptData(String str) {
-        StringBuilder sb = new StringBuilder();
-        try{
-            MessageDigest md5 = MessageDigest.getInstance("MD5");
-            md5.update(str.getBytes());
-            byte[] md5encrypt = md5.digest();
-            
-            for(int i = 0 ; i < md5encrypt.length ; i++){
-                sb.append(Integer.toHexString((int)md5encrypt[i] & 0xFF));
-            }
-            
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
-        
-        return sb.toString();
-    }
+		StringBuilder sb = new StringBuilder();
+		try {
+			MessageDigest md5 = MessageDigest.getInstance("MD5");
+			md5.update(str.getBytes());
+			byte[] md5encrypt = md5.digest();
+
+			for (int i = 0; i < md5encrypt.length; i++) {
+				sb.append(Integer.toHexString((int) md5encrypt[i] & 0xFF));
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return sb.toString();
+	}
 
 	@Override
 	public void saveRefreshToken(String user_id, String refreshToken) throws Exception {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("user_id", user_id);
 		map.put("token", refreshToken);
-		memberMapper.saveRefreshToken(map);		
+		memberMapper.saveRefreshToken(map);
 	}
 
 	@Override
@@ -98,7 +109,7 @@ public class MemberServiceImpl implements IMemberService {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("user_id", user_id);
 		map.put("token", null);
-		memberMapper.deleteRefreshToken(map);		
+		memberMapper.deleteRefreshToken(map);
 	}
 
 	@Override
@@ -113,7 +124,7 @@ public class MemberServiceImpl implements IMemberService {
 		if (targetUser == null) {
 			return new ResetPwdInfoDto("FAIL");
 		}
-		
+
 		// 2. 입력된 정보에 해당하는 user가 있다면
 		// 2-1. 인증코드를 메일로 보내고
 		// 2-2. 인증코드를 프론트에게로도 보낸다.

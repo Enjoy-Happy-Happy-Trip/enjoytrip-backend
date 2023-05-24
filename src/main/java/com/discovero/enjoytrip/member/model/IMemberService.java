@@ -13,7 +13,7 @@ public interface IMemberService {
 
 	MembersDto memberDetail(String user_id);
 
-	boolean memberDelete(String user_id);
+	void removeMemberById(String user_id);
 
 	boolean modifyMember(MembersDto dto);
 	
