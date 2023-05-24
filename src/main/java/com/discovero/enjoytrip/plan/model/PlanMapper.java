@@ -20,4 +20,5 @@ public interface PlanMapper {
 	void deletePlanDetail(int plan_id);
 	void deletePlan(int plan_id);
 	void deleteUserSchedule(int plan_id);
+	void deleteSharedPlan(int plan_id);
 }

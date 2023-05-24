@@ -23,5 +23,7 @@ public interface IPlanService {
 	List<UserScheduleDto> getFuturePlan(String user_id);
 
 	void deleteUserSchedule(int plan_id);
+
+	void deleteSharedPlan(int plan_id);
 	
 }
