@@ -89,7 +89,7 @@ public class MemberController {
 			HttpServletRequest request) {
 //		logger.debug("user_id : {} ", user_id);
 		Map<String, Object> resultMap = new HashMap<>();
-		HttpStatus status = HttpStatus.UNAUTHORIZED;
+		HttpStatus status = HttpStatus.OK;
 		if (jwtService.checkToken(request.getHeader("access-token"))) {
 			logger.info("사용 가능한 토큰!!!");
 			try {
@@ -106,7 +106,7 @@ public class MemberController {
 		} else {
 			logger.error("사용 불가능 토큰!!!");
 			resultMap.put("message", FAIL);
-			status = HttpStatus.UNAUTHORIZED;
+			status = HttpStatus.OK;
 		}
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
