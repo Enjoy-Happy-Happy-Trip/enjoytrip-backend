@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.discovero.enjoytrip.place.model.PlaceMapper;
 import com.discovero.enjoytrip.util.model.EmailDto;
@@ -43,8 +44,8 @@ public class MemberServiceImpl implements IMemberService {
 	}
 
 	@Override
-	public List<MembersDto> memberlist() {
-		return memberMapper.memberlist();
+	public List<MembersDto> findAllMembers() {
+		return memberMapper.selectMembers();
 	}
 
 	@Override
@@ -53,18 +54,23 @@ public class MemberServiceImpl implements IMemberService {
 	}
 
 	@Override
+	@Transactional
 	public void removeMemberById(String user_id) {
 		// 1. user가 쓴 Review의 ContentId 리스트를 조회한다.
 		List<Integer> contentIdsOfReviewByUser = placeMapper.selectContentIdsByUserId(user_id);
+		System.out.println("review contentId 리스트 조회 완료");
 
 		// 2. ContentId 마다 review count를 1씩 감소시킨다.
 		contentIdsOfReviewByUser.stream()
 				.forEach((contentId) -> placeMapper.updateHotPlaceReviewCountById(contentId, -1));
+		System.out.println("contentId review 감소 완료");
 
-		// 3. user가 공유한 plan의 shared 를 false로 바꾼다.
-		placeMapper.updateSharedToFalseByUserId(user_id);
+		// 3. user가 공유한 plan의 shared 를 false로 바꾸고 공유 정보를 삭제한다.
+		placeMapper.updateSharedPlanToInitByUserId(user_id);
+		System.out.println("공유 여행 초기화 완료");
 
 		memberMapper.deleteMemeberById(user_id);
+		System.out.println("user 삭제 완료");
 	}
 
 	@Override

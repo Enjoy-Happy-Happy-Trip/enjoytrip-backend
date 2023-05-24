@@ -1,6 +1,7 @@
 package com.discovero.enjoytrip.member.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -187,11 +188,11 @@ public class MemberController {
 	}
 	
 	// 관리자에게 회원 목록을 보여줍니다.
-	@GetMapping("/memberlist")
-	public String memberlist(Model model) throws Exception {
-		logger.debug("GET memberlist called");
-		model.addAttribute("members", memberService.memberlist());
-		return "/member/adminpage";
+	@GetMapping("")
+	public ResponseEntity<List<MembersDto>> memberList() throws Exception {
+		logger.debug("GET memberList called");
+		List<MembersDto> members = memberService.findAllMembers();
+		return new ResponseEntity<List<MembersDto>>(members, HttpStatus.OK);
 	}
 	
 	// 관리자에게 회원 상세 정보를 보여줍니다.
@@ -205,6 +206,7 @@ public class MemberController {
 	// 관리자가 회원을 삭제합니다.
 	@DeleteMapping("/{user_id}")
 	public ResponseEntity<Void> memberRemove(@PathVariable String user_id) throws Exception {
+		logger.debug("DELETE memberRemove called");
 		memberService.removeMemberById(user_id);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}

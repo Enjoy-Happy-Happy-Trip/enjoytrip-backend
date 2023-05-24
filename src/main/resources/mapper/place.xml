@@ -60,9 +60,9 @@
 		where user_id=#{user_id}
 	</select>
 	
-	<update id="updateSharedToFalseByUserId" parameterType="string">
-		update plan set shared=false
-		where user_id=#{user_id} and shared=false
+	<update id="updateSharedPlanToInitByUserId" parameterType="string">
+		update plan set user_id=null, plan_title=null, plan_desc=null, shared=false
+		where user_id=#{user_id} and shared=true
 	</update>
 	
 </mapper>

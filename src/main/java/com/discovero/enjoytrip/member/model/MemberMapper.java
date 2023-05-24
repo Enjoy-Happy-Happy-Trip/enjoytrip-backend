@@ -16,7 +16,7 @@ public interface MemberMapper {
 
 	String findpassword(String student_no);
 
-	List<MembersDto> memberlist();
+	List<MembersDto> selectMembers();
 
 	MembersDto memberDetail(String user_id);
 
