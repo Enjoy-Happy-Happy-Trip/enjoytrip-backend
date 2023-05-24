@@ -106,6 +106,13 @@ public class PlanController {
 				
 		planService.deleteUserSchedule(plan_id);
 	}
+	
+	@PutMapping("/shared/{plan_id}")
+	public void deleteSharedPlan(@PathVariable int plan_id) throws Exception {
+		logger.debug("PUT deleteSharedPlan called");
+		
+		planService.deleteSharedPlan(plan_id);
+	}
 }
 
 

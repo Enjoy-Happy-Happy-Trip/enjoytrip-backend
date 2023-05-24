@@ -78,6 +78,10 @@
 		where plan_id=#{plan_id}
 	</update>
 	
+	<update id="deleteSharedPlan" parameterType="int">
+		update plan set shared = 0 where plan_id = #{plan_id}
+	</update>
+	
 	<delete id="deletePlanDetail" parameterType="int">
 		delete from plan_detail
 		where plan_id = #{plan_id}

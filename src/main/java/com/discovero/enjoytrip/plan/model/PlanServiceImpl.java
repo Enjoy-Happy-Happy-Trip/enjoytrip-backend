@@ -78,4 +78,10 @@ public class PlanServiceImpl implements IPlanService {
 		planMapper.deletePlan(plan_id);
 	}
 
+	@Override
+	public void deleteSharedPlan(int plan_id) {
+		planMapper.deleteSharedPlan(plan_id);
+	}
+
+
 }
