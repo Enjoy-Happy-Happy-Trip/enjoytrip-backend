@@ -186,8 +186,6 @@ public class MemberController {
 		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 	
-	// TODO: 비밀번호 찾기 페이지는 비밀번호 재설정으로 변경해서 재구현
-	
 	// 관리자에게 회원 목록을 보여줍니다.
 	@GetMapping("/memberlist")
 	public String memberlist(Model model) throws Exception {
@@ -204,12 +202,11 @@ public class MemberController {
 		return "/member/memberupdate";
 	}
 	
-	// TODO: REST api로 구성하기 위해서는 url상에서 delete는 없애야 함.
 	// 관리자가 회원을 삭제합니다.
-	@DeleteMapping("/delete")
-	public String delete(String user_id) throws Exception {
-		memberService.memberDelete(user_id);
-		return "redirect:/member/memberlist";
+	@DeleteMapping("/{user_id}")
+	public ResponseEntity<Void> memberRemove(@PathVariable String user_id) throws Exception {
+		memberService.removeMemberById(user_id);
+		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
 	// TODO: REST api로 구성하기 위해서는 url상에서 Go는 없애야 함.

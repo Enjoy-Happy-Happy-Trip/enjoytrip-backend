@@ -17,4 +17,6 @@ public interface PlaceMapper {
 	void insertHotPlace(int content_id);
 	int getHotPlace(int content_id);
 	void deleteZeroCountHotplace();
+	List<Integer> selectContentIdsByUserId(String user_id);
+	void updateSharedToFalseByUserId(String user_id);
 }

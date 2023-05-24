@@ -20,7 +20,7 @@ public interface MemberMapper {
 
 	MembersDto memberDetail(String user_id);
 
-	boolean memberDelete(String user_id);
+	void deleteMemeberById(String user_id);
 
 	boolean memberUpdate(MembersDto dto);
 

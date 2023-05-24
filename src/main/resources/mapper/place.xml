@@ -55,4 +55,14 @@
 		delete from hotplace where review_count = 0
 	</delete>
 	
+	<select id="selectContentIdsByUserId" parameterType="string" resultType="int">
+		select content_id from place_review
+		where user_id=#{user_id}
+	</select>
+	
+	<update id="updateSharedToFalseByUserId" parameterType="string">
+		update plan set shared=false
+		where user_id=#{user_id} and shared=false
+	</update>
+	
 </mapper>
