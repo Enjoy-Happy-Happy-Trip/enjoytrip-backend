@@ -134,10 +134,19 @@ public class MemberServiceImpl implements IMemberService {
 		// 2. 입력된 정보에 해당하는 user가 있다면
 		// 2-1. 인증코드를 메일로 보내고
 		// 2-2. 인증코드를 프론트에게로도 보낸다.
-		String authCode = "123456"; // TODO : 랜덤 설정으로 바꾸기
+		String authCode = generateAuthCodeForResetPwd();
 		EmailDto edto = new EmailDto(mdto.getEmail(), "[EnjoyTrip] 인증코드", authCode);
 		emailService.sendEmail(edto);
 		return new ResetPwdInfoDto(targetUser.getUser_id(), authCode);
+	}
+	
+	private String generateAuthCodeForResetPwd() {
+		return String.valueOf(generateRandomNumber(100_000, 999_999));
+	}
+	
+	private int generateRandomNumber(int start, int end) {
+		int range = end - start + 1;
+		return (int)(Math.random()*range) + start;
 	}
 
 	@Override
