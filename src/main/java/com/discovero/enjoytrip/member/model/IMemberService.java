@@ -29,4 +29,6 @@ public interface IMemberService {
 
 	MembersDto findMemberById(String userId);
 
+	void modifyMemberById(MembersDto mdto);
+
 }
