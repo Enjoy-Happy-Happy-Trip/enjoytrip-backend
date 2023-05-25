@@ -27,6 +27,7 @@ import com.discovero.enjoytrip.member.model.IMemberService;
 import com.discovero.enjoytrip.member.model.JwtServiceImpl;
 import com.discovero.enjoytrip.member.model.MembersDto;
 import com.discovero.enjoytrip.member.model.ResetPwdInfoDto;
+import com.sun.mail.iap.Response;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -195,12 +196,11 @@ public class MemberController {
 		return new ResponseEntity<List<MembersDto>>(members, HttpStatus.OK);
 	}
 	
-	// 관리자에게 회원 상세 정보를 보여줍니다.
-	@GetMapping("/detail")
-	public String detail(String user_id, Model model) throws Exception {
-		logger.debug("GET detail called");
-		model.addAttribute("member", memberService.memberDetail(user_id));
-		return "/member/memberupdate";
+	@GetMapping("/{userId}")
+	public ResponseEntity<MembersDto> memberFind(@PathVariable String userId) {
+		logger.debug("GET memberFind called");
+		MembersDto mdto = memberService.findMemberById(userId);
+		return new ResponseEntity<MembersDto>(mdto, HttpStatus.OK);
 	}
 	
 	// 관리자가 회원을 삭제합니다.
@@ -211,10 +211,14 @@ public class MemberController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
-	// TODO: REST api로 구성하기 위해서는 url상에서 Go는 없애야 함.
-	// 관리자가 회원 정보를 수정합니다.
 	@PutMapping("/{user_id}")
-	public ResponseEntity<Void> update(@RequestBody MembersDto mdto) throws Exception {
+	public ResponseEntity<Void> MemberModify(@RequestBody MembersDto mdto) throws Exception {
+		memberService.modifyMemberById(mdto);
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+	
+	@PutMapping("/password/{user_id}")
+	public ResponseEntity<Void> passwordModify(@RequestBody MembersDto mdto) throws Exception {
 		memberService.modifyPasswordById(mdto);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}

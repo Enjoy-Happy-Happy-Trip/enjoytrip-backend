@@ -154,4 +154,13 @@ public class MemberServiceImpl implements IMemberService {
 		return memberMapper.selectMemberById(userId);
 	}
 
+	@Override
+	public void modifyMemberById(MembersDto mdto) {
+		mdto.setUser_password(encryptData(mdto.getUser_password()));
+		memberMapper.memberUpdate(mdto);
+		
+	}
+	
+	
+
 }
