@@ -23,10 +23,10 @@ public class AnnouncementServiceImpl implements IAnnouncementService {
 	@Override
 	@Transactional
 	public AnnouncementDto findAnnouncementById(int announcementId, boolean isViewed) {
-		AnnouncementDto announcement = announcementMapper.selectAnnouncementById(announcementId);
 		if (isViewed) {
 			announcementMapper.updateHitByAddingOneById(announcementId);
 		}
+		AnnouncementDto announcement = announcementMapper.selectAnnouncementById(announcementId);
 		return announcement;
 	}
 
