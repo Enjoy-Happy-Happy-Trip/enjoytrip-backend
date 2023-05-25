@@ -140,4 +140,9 @@ public class MemberServiceImpl implements IMemberService {
 		return new ResetPwdInfoDto(targetUser.getUser_id(), authCode);
 	}
 
+	@Override
+	public MembersDto findMemberById(String userId) {
+		return memberMapper.selectMemberById(userId);
+	}
+
 }

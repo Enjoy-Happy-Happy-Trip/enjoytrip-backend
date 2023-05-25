@@ -27,4 +27,6 @@ public interface IMemberService {
 
 	ResetPwdInfoDto resetPwd(MembersDto mdto);
 
+	MembersDto findMemberById(String userId);
+
 }

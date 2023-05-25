@@ -65,4 +65,9 @@
 		where user_id=#{user_id}
 	</update>
 	
+	<select id="selectMemberById" parameterType="String" resultType="membersDto">
+		select user_id, user_name, email_id, email_domain, join_date from members
+		where user_id=#{user_id}
+	</select>
+	
 </mapper>
