@@ -107,4 +107,9 @@
 		</set>
 		where schedule_id=#{schedule_id}
 	</update>
+	
+	<insert id="insertScheduleByScraping" parameterType="userScheduleDto">
+		insert into user_schedule(user_id, plan_id, schedule_title, start_date, end_date)
+		values(#{user_id}, #{plan_id}, #{schedule_title}, #{start_date}, #{end_date})
+	</insert>
 </mapper>

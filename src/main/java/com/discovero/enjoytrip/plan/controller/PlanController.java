@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ import com.discovero.enjoytrip.attraction.model.AttractionDto;
 import com.discovero.enjoytrip.plan.model.IPlanService;
 import com.discovero.enjoytrip.plan.model.PlanDto;
 import com.discovero.enjoytrip.plan.model.UserScheduleDto;
+import com.discovero.enjoytrip.tour.model.UserPlanDto;
 
 import io.swagger.annotations.Api;
 
@@ -121,6 +123,14 @@ public class PlanController {
 		logger.debug("PUT scheduleModify called, Schedule : {}", udto);
 		logger.debug("plan modified : {}", hasPlanModified);
 		planService.modifySchedule(udto, hasPlanModified);
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+	
+	@PostMapping("/{planId}")
+	public ResponseEntity<Void> scheduleAddByScraping(@RequestBody UserScheduleDto udto) {
+		logger.info("POST scheduleAddByScraping called");
+		
+		planService.addScheduleByScraping(udto);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 }
