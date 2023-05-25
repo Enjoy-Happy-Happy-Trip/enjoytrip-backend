@@ -10,6 +10,7 @@ public class PlaceReviewDto {
 	private String register_time;
 	private int review_id;
 	private String title;
+	private String image;
 	
 	public PlaceReviewDto() {
 		super();
@@ -23,6 +24,14 @@ public class PlaceReviewDto {
 		this.user_review = user_review;
 		this.register_time = register_time;
 		this.review_id = review_id;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	public int getReview_id() {
