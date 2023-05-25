@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.discovero.enjoytrip.attraction.model.AttractionDto;
 import com.discovero.enjoytrip.attraction.model.AttractionMapper;
 import com.discovero.enjoytrip.tour.model.TourMapper;
+import com.discovero.enjoytrip.tour.model.UserPlanDto;
 
 @Service
 public class PlanServiceImpl implements IPlanService {
@@ -109,4 +110,11 @@ public class PlanServiceImpl implements IPlanService {
 		planMapper.updateScheduleById(udto);
 		
 	}
+
+	@Override
+	public void addScheduleByScraping(UserScheduleDto udto) {
+		planMapper.insertScheduleByScraping(udto);
+	}
+	
+	
 }

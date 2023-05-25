@@ -3,6 +3,7 @@ package com.discovero.enjoytrip.plan.model;
 import java.util.List;
 
 import com.discovero.enjoytrip.attraction.model.AttractionDto;
+import com.discovero.enjoytrip.tour.model.UserPlanDto;
 
 public interface IPlanService {
 
@@ -27,5 +28,7 @@ public interface IPlanService {
 	void deleteSharedPlan(int plan_id);
 
 	void modifySchedule(UserScheduleDto udto, boolean hasPlanModified);
+
+	void addScheduleByScraping(UserScheduleDto udto);
 	
 }

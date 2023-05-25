@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.discovero.enjoytrip.attraction.model.AttractionDto;
+import com.discovero.enjoytrip.tour.model.UserPlanDto;
 
 @Mapper
 public interface PlanMapper {
@@ -22,4 +23,5 @@ public interface PlanMapper {
 	void deleteUserSchedule(int plan_id);
 	void deleteSharedPlan(int plan_id);
 	void updateScheduleById(UserScheduleDto udto);
+	void insertScheduleByScraping(UserScheduleDto udto);
 }
