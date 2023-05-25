@@ -219,21 +219,14 @@ public class MemberController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
-	// login여부를 front에게 알려줍니다. (1 : login 되어있음, 2 : admin, 0 : login 안되어 있음)
-	@GetMapping("/check")
-	@ResponseBody
-	public Map<String, Integer> check(HttpSession session) {
+	// user_id로의 가입 여부 api
+	// 사용 가능 시 (중복이 없을 시) true 반환
+	@GetMapping("/check/{userId}")
+	public ResponseEntity<Boolean> check(@PathVariable String userId) {
 		logger.info("GET check called");
-		Map<String, Integer> loginInfo = new HashMap<>();
-		MembersDto login = (MembersDto) session.getAttribute("login");
-		if (login == null) {
-			loginInfo.put("isLogin", 0);
-		} else if (login.getUser_id().equals("admin")) {
-			loginInfo.put("isLogin", 2);
-		} else {
-			loginInfo.put("isLogin", 1);
-		}
-		return loginInfo;
+		MembersDto user = memberService.findMemberById(userId);
+		logger.debug("user : {}", user);
+		return new ResponseEntity<Boolean>(user == null, HttpStatus.OK);
 	}
 	
 	@PostMapping("/resetPwd")

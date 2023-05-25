@@ -34,4 +34,6 @@ public interface MemberMapper {
 
 	void updatePasswordById(MembersDto mdto);
 
+	MembersDto selectMemberById(String userId);
+
 }
