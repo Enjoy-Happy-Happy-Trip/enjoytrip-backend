@@ -75,7 +75,9 @@ public class PlaceServiceImpl implements IPlaceService {
 	@Override
 	public PlaceReviewDto getReview(int review_id) {
 		PlaceReviewDto review = placeMapper.getReview(review_id);
-		review.setTitle(attractionMapper.selectAttractionById(review.getContent_id()).getTitle());
+		AttractionDto adto = attractionMapper.selectAttractionById(review.getContent_id());
+		review.setTitle(adto.getTitle());
+		review.setImage(adto.getFirstImage());
 		return review;
 	}
 }
